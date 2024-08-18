@@ -13,8 +13,11 @@ public class TransactionHistory(
     [HttpGet]
     public async Task<ActionResult> GetTransactionHistoryList(int id)
     {
+        //Coding style: _var only when its readonly,
+        //with lower case starting in primary consteructor
         var command = new GetTransactionHistoryListCommand(id);
         var result = getTransactionHistoryListCommandHandler.Handle(command);
+
         return Ok(result.MapToDtoList());
     }
 

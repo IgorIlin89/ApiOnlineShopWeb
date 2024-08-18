@@ -5,7 +5,6 @@ public class TransactionHistory
     public int Id { get; set; }
     //public int Id { get; private init; }
     //public int Id { get; private set; }
-    public int? TransactionHistoryToCouponsId { get; set; }
     public int UserId { get; set; }
     public DateTimeOffset PaymentDate { get; set; }
     public decimal? FinalPrice { get; private set; }
@@ -25,38 +24,47 @@ public class TransactionHistory
 
     //}
 
-    //public TransactionHistory CreateObject(int UserId)
-    //{
-    //    var result = new TransactionHistory
-    //    {
-    //        Id = 1,
-    //        UserId = 3,
-    //        ProductsInCart = new List<ProductInCart>()
-    //    };
-    //    //TransactionHistory without Products in cart no sense, without price 
-    //    result.ProductsInCart.Add(new ProductInCart
-    //    {
+    public static TransactionHistory Create(int UserId,
+        List<ProductInCart> products)
+    {
+        var result = new TransactionHistory
+        {
+            Id = 1,
+            UserId = 3,
+            ProductsInCart = new List<ProductInCart>(),
+            FinalPrice = CalculateFinalPrice(products)
+        };
+        //TransactionHistory without Products in cart no sense, without price 
+        result.ProductsInCart.Add(new ProductInCart
+        {
 
-    //    });
+        });
+
+        return result;
+    }
+    //internal static decimal CalculateFinalPrice()
+    //{
+    //    return CalculateFinalPrice(ProductsInCart);
     //}
-    internal void CalculateFinalPrice()
+
+    public static decimal CalculateFinalPrice(List<ProductInCart> products)
     {
         decimal result = new();
 
         //MappingTransactionHistory.AccessAuthorization(this);
 
-        foreach (var element in ProductsInCart)
+        foreach (var element in products)
         {
             result += element.PricePerProduct * element.Count;
         }
 
         //TODO Coupons implementation with data from OnlineshopWeb
 
-        FinalPrice = result;
+        return result;
     }
 
-    //public void CalculateFinalPrice(AddTransactionHistoryCommandHandler handler)
+    //public decimal CalculateFinalPrice()
     //{
-    //    //typeof (AddTransactionHistoryCommandHandler)
+
     //}
 }

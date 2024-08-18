@@ -11,12 +11,14 @@ internal class ApiTransactionHistoryRepository : IApiTransactionHistoryRepositor
     {
         _context = context;
     }
+
     public List<TransactionHistory> GetList(int id)
     {
         return _context.TransactionHistory
             .Include(o => o.ProductsInCart)
             .Include(o => o.Coupons)
-            .Where(o => o.UserId == id).ToList();
+            .Where(o => o.UserId == id)
+            .ToList();
     }
 
     public TransactionHistory Add(TransactionHistory transactionHistory)

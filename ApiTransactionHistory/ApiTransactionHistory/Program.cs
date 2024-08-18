@@ -1,9 +1,12 @@
 using ApiTransactionHistory.Application;
 using ApiTransactionHistory.Database;
 using ApiTransactionHistory.Middlewares;
+using Microsoft.Data.SqlClient;
+using NServiceBus;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+IEndpointInstance endpointInstance = null;
 
 try
 {
@@ -36,6 +39,50 @@ try
     var logger = loggingConfiguration.CreateLogger();
     builder.Host.UseSerilog(logger);
 
+    //NServiceBus
+    //This is name in Database
+    var endpointConfiguration = new EndpointConfiguration("ApiTransaction");
+    endpointConfiguration.SendFailedMessagesTo("error");
+    endpointConfiguration.AuditProcessedMessagesTo("audit");
+    endpointConfiguration.EnableInstallers();
+
+    // Choose JSON to serialize and deserialize messages
+    endpointConfiguration.UseSerialization<NServiceBus.SystemJsonSerializer>();
+
+    var nserviceBusConnectionString = builder.Configuration.GetConnectionString("NServiceBus");
+
+    var transportConfig = new NServiceBus.SqlServerTransport(nserviceBusConnectionString)
+    {
+        DefaultSchema = "dbo",
+        TransportTransactionMode = TransportTransactionMode.SendsAtomicWithReceive,
+        Subscriptions =
+    {
+        CacheInvalidationPeriod = TimeSpan.FromMinutes(1),
+        SubscriptionTableName = new NServiceBus.Transport.SqlServer.SubscriptionTableName(
+            table: "Subscriptions",
+            schema: "dbo")
+    }
+    };
+
+    transportConfig.SchemaAndCatalog.UseSchemaForQueue("error", "dbo");
+    transportConfig.SchemaAndCatalog.UseSchemaForQueue("audit", "dbo");
+
+    var transport = endpointConfiguration.UseTransport<SqlServerTransport>(transportConfig);
+
+    //persistence
+    var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
+    var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
+    dialect.Schema("dbo");
+    persistence.ConnectionBuilder(() => new SqlConnection(nserviceBusConnectionString));
+    persistence.TablePrefix("");
+
+    //await SqlServerHelper.CreateSchema(nserviceBusConnectionString, "dbo");
+
+    var endpointContainer = EndpointWithExternallyManagedContainer.Create(endpointConfiguration, builder.Services);
+    endpointInstance = await endpointContainer.Start(builder.Services.BuildServiceProvider());
+
+    //End NServiceBus
+
     var app = builder.Build();
 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -53,7 +100,7 @@ try
 
     app.MapControllers();
 
-    app.Run();
+    await app.RunAsync();
 }
 catch (Exception exception)
 {
@@ -61,5 +108,11 @@ catch (Exception exception)
 }
 finally
 {
+    if (endpointInstance is not null)
+    {
+        await endpointInstance.Stop()
+        .ConfigureAwait(false);
+        //TODO in microsoft learn look up ConfigureAwait
+    }
     Log.CloseAndFlush();
 }

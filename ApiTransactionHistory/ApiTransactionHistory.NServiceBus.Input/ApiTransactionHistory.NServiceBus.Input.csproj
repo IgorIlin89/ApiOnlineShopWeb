@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiTransactionHistory.Domain\ApiTransactionHistory.Domain.csproj" />
+    <PackageReference Include="OnlineShopWeb.Messages" Version="8.0.0-rc2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApiTransactionHistory.Application\ApiTransactionHistory.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ public static class MappingTransactionHistory
 
     private static void CallSetFinalPrice(TransactionHistory transactionHistory)
     {
-        transactionHistory.CalculateFinalPrice();
+        //transactionHistory.CalculateFinalPrice();
     }
 
     public static TransactionHistory MapToTransactionHistory(this AddTransactionHistoryDto addTransactionHistoryDto)
@@ -28,7 +28,7 @@ public static class MappingTransactionHistory
 
         if (addTransactionHistoryDto.TransactionHistoryToCouponsId is not null)
         {
-            transactionHistory.TransactionHistoryToCouponsId = addTransactionHistoryDto.TransactionHistoryToCouponsId;
+            //transactionHistory.TransactionHistoryToCouponsId = addTransactionHistoryDto.TransactionHistoryToCouponsId;
         }
 
         transactionHistory.UserId = addTransactionHistoryDto.UserId;
@@ -52,7 +52,7 @@ public static class MappingTransactionHistory
         var transactionHistory = new TransactionHistory();
 
         transactionHistory.Id = addTransactionHistoryDto.Id;
-        transactionHistory.TransactionHistoryToCouponsId = addTransactionHistoryDto.TransactionHistoryToCouponsId;
+        //transactionHistory.TransactionHistoryToCouponsId = addTransactionHistoryDto.TransactionHistoryToCouponsId;
         transactionHistory.UserId = addTransactionHistoryDto.UserId;
         transactionHistory.PaymentDate = addTransactionHistoryDto.PaymentDate;
         //transactionHistory.FinalPrice = addTransactionHistoryDto.FinalPrice;
@@ -78,7 +78,7 @@ public static class MappingTransactionHistory
         var result = new TransactionHistoryDto();
 
         result.Id = transactionHistory.Id;
-        result.TransactionHistoryToCouponsId = transactionHistory.TransactionHistoryToCouponsId;
+        //result.TransactionHistoryToCouponsId = transactionHistory.TransactionHistoryToCouponsId;
         result.UserId = transactionHistory.UserId;
         result.PaymentDate = transactionHistory.PaymentDate;
         result.FinalPrice = transactionHistory.FinalPrice;

@@ -21,6 +21,7 @@
     <ProjectReference Include="..\ApiTransactionHistory.Application\ApiTransactionHistory.Application.csproj" />
     <ProjectReference Include="..\ApiTransactionHistory.Database\ApiTransactionHistory.Database.csproj" />
     <ProjectReference Include="..\ApiTransactionHistory.Domain\ApiTransactionHistory.Domain.csproj" />
+    <ProjectReference Include="..\ApiTransactionHistory.NServiceBus.Input\ApiTransactionHistory.NServiceBus.Input.csproj" />
   </ItemGroup>
 
 </Project>

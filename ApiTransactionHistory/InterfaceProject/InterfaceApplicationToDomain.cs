@@ -1,11 +1,9 @@
-﻿using ApiTransactionHistory.Application.Handlers;
-using ApiTransactionHistory.Domain;
-namespace InterfaceProject;
+﻿namespace InterfaceProject;
 
-public class InterfaceApplicationToDomain
+public interface TestInterface
 {
-    public void CalculateFinalPrice(AddTransactionHistoryCommandHandler handler,
-        TransactionHistory history)
-    {
-    }
+    //public void CalculateFinalPrice(AddTransactionHistoryCommandHandler handler,
+    //    TransactionHistory history)
+    //{
+    //}
 }

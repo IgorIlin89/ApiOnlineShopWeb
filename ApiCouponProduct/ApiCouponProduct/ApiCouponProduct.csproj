@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ApiCouponProduct.Domain\ApiCouponProduct.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

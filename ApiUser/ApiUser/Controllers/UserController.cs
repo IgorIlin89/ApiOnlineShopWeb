@@ -1,6 +1,7 @@
 ﻿using ApiUser.Application.Commands;
 using ApiUser.Application.Handlers.Interfaces;
 using ApiUser.Domain.Dtos;
+using ApiUser.Domain.Interfaces.Handlers;
 using Microsoft.AspNetCore.Mvc;
 namespace ApiUser.Controllers;
 

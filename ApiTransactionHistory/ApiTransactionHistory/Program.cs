@@ -12,7 +12,7 @@ try
 {
 
     var bootstrapLoggingConfiguration = new LoggerConfiguration()
-        .WriteTo.File("ApiTransactionHistory_Fatal.log");
+        .WriteTo.File("Logs/ApiTransactionHistory_Fatal.log");
     Log.Logger = bootstrapLoggingConfiguration.CreateBootstrapLogger();
 
     // Add services to the container.

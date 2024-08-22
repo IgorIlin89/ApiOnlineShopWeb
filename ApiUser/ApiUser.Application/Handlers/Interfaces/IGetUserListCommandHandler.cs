@@ -1,6 +1,4 @@
-﻿using ApiUser.Domain;
-
-namespace ApiUser.Application.Handlers.Interfaces;
+﻿namespace ApiUser.Domain.Interfaces.Handlers;
 
 public interface IGetUserListCommandHandler
 {

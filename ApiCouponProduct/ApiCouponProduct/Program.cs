@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 try
 {
     var bootstrapLoggingConfiguration = new LoggerConfiguration()
-    .WriteTo.File("ApiCouponProduct_Fatal.log");
+    .WriteTo.File("Logs/ApiCouponProduct_Fatal.log");
     Log.Logger = bootstrapLoggingConfiguration.CreateBootstrapLogger();
 
     // Add services to the container.

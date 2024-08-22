@@ -1,8 +1,9 @@
 ﻿using ApiUser.Domain.Exceptions;
+using ApiUser.Domain.Interfaces.Commands;
 
 namespace ApiUser.Application.Commands;
 
-public record GetUserByEmailCommand
+public record GetUserByEmailCommand : IGetUserByEmailCommand
 {
     public string Email { get; init; }
     public GetUserByEmailCommand(string email)
@@ -13,5 +14,10 @@ public record GetUserByEmailCommand
         }
 
         Email = email;
+    }
+
+    public bool Equals(IGetUserByEmailCommand? other)
+    {
+        throw new NotImplementedException();
     }
 }

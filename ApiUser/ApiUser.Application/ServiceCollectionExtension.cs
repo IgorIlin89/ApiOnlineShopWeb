@@ -1,5 +1,6 @@
 ﻿using ApiUser.Application.Handlers;
 using ApiUser.Application.Handlers.Interfaces;
+using ApiUser.Domain.Interfaces.Handlers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ApiUser.Application;

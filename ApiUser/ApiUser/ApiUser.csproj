@@ -23,4 +23,8 @@
     <ProjectReference Include="..\ApiUser.Domain\ApiUser.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

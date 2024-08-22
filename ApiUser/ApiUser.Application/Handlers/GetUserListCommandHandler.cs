@@ -1,6 +1,6 @@
-﻿using ApiUser.Application.Handlers.Interfaces;
-using ApiUser.Database.Interfaces;
+﻿using ApiUser.Database.Interfaces;
 using ApiUser.Domain;
+using ApiUser.Domain.Interfaces.Handlers;
 
 namespace ApiUser.Application.Handlers;
 

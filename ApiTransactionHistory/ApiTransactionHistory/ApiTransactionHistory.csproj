@@ -24,4 +24,8 @@
     <ProjectReference Include="..\ApiTransactionHistory.NServiceBus.Input\ApiTransactionHistory.NServiceBus.Input.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+
 </Project>

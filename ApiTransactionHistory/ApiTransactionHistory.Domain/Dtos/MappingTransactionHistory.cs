@@ -37,7 +37,7 @@ public static class MappingTransactionHistory
 
         if (addTransactionHistoryDto.CouponsDto is not null)
         {
-            transactionHistory.Coupons = addTransactionHistoryDto.CouponsDto.MapToTransactionHistoryToCoupons();
+            //transactionHistory.Coupons = addTransactionHistoryDto.CouponsDto.MapToTransactionHistoryToCoupons();
         }
 
         transactionHistory.ProductsInCart = addTransactionHistoryDto.ProductsInCartDto.MapToProductInCartList();
@@ -58,7 +58,7 @@ public static class MappingTransactionHistory
         //transactionHistory.FinalPrice = addTransactionHistoryDto.FinalPrice;
         if (addTransactionHistoryDto.CouponsDto is not null)
         {
-            transactionHistory.Coupons = addTransactionHistoryDto.CouponsDto.MapToTransactionHistoryToCoupons();
+            //transactionHistory.Coupons = addTransactionHistoryDto.CouponsDto.MapToTransactionHistoryToCoupons();
         }
         transactionHistory.ProductsInCart = addTransactionHistoryDto.ProductsInCartDto.MapToProductInCartList();
 
@@ -84,7 +84,7 @@ public static class MappingTransactionHistory
         result.FinalPrice = transactionHistory.FinalPrice;
         if (transactionHistory.Coupons is not null)
         {
-            result.CouponsDto = transactionHistory.Coupons.MapToDto();
+            //result.CouponsDto = transactionHistory.Coupons.MapToDto();
         }
 
         if (transactionHistory.ProductsInCart is not null)

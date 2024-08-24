@@ -1,24 +1,24 @@
 ﻿using ApiUser.Database;
-using FluentMigrator.Runner;
+//using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
-var serviceCollection = new ServiceCollection()
-    .AddFluentMigratorCore()
-    .ConfigureRunner(runner => runner
-        .AddSqlServer()
-        .WithGlobalConnectionString("appsettings.json") // here the real one from DbExtension =>
-        .ScanIn(typeof(Program).Assembly).For.Migrations()
-    )
-    .AddLogging(log => log.AddFluentMigratorConsole())
-    .BuildServiceProvider();
+//var serviceCollection = new ServiceCollection()
+//    .AddFluentMigratorCore()
+//    .ConfigureRunner(runner => runner
+//        .AddSqlServer()
+//        .WithGlobalConnectionString("appsettings.json") // here the real one from DbExtension =>
+//        .ScanIn(typeof(Program).Assembly).For.Migrations()
+//    )
+//    .AddLogging(log => log.AddFluentMigratorConsole())
+//    .BuildServiceProvider();
 
-var runner = serviceCollection.GetRequiredService<IMigrationRunner>();
+//var runner = serviceCollection.GetRequiredService<IMigrationRunner>();
 
-runner.MigrateUp();
+//runner.MigrateUp();
 
 
 var serviceCollection = new ServiceCollection();

@@ -8,10 +8,11 @@ public class TransactionHistory
     public int UserId { get; set; }
     public DateTimeOffset PaymentDate { get; set; }
     public decimal? FinalPrice { get; private set; }
-    public TransactionHistoryToCoupons? Coupons { get; set; }
 
     //When using ICollection, EF Core give an Error
     public List<ProductInCart> ProductsInCart { get; set; }
+    public List<TransactionHistoryToCoupons>? Coupons { get; set; }
+
 
     //Make Enum of TypeOfDiscount´, make sure it cant get values that are not allowed
 

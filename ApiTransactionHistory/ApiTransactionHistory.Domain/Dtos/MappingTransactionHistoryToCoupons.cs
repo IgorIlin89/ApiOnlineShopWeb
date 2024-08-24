@@ -10,7 +10,7 @@ public static class MappingTransactionHistoryToCoupons
             Id = transactionHistoryToCouponsDto.Id,
             TransactionHistoryId = transactionHistoryToCouponsDto.TransactionHistoryId,
             TransactionHistory = transactionHistoryToCouponsDto.TransactionHistoryDto.MapToTransactionHistory(),
-            CouponsId = new List<int>(transactionHistoryToCouponsDto.CouponsDtoId.ToList())
+            //CouponsId = new List<int>(transactionHistoryToCouponsDto.CouponsDtoId.ToList())
         };
     }
 
@@ -23,7 +23,7 @@ public static class MappingTransactionHistoryToCoupons
             TransactionHistoryId = transactionHistoryToCoupons.TransactionHistoryId,
             TransactionHistoryDto = transactionHistoryToCoupons.TransactionHistory.MapToDto(),
             //CouponsDtoId = new List<int>(transactionHistoryToCoupons.CouponsId.ToList()),
-            CouponsDtoId = transactionHistoryToCoupons.CouponsId.ToList()
+            //CouponsDtoId = transactionHistoryToCoupons.CouponsId.ToList()
 
         };
 

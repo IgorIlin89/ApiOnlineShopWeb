@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiTransactionHistory.Controllers;
 
-public class TransactionHistory(
+public class TransactionHistory( // TODO Rename to TransactionController, convention naming controller at end
     IGetTransactionHistoryListCommandHandler getTransactionHistoryListCommandHandler,
     IAddTransactionHistoryCommandHandler addTransactionHistoryCommandHandler) : ControllerBase
 {
@@ -17,8 +17,8 @@ public class TransactionHistory(
         //with lower case starting in primary consteructor
         var command = new GetTransactionHistoryListCommand(id);
         var result = getTransactionHistoryListCommandHandler.Handle(command);
-
-        return Ok(result.MapToDtoList());
+        return Ok();
+        //TODO return Ok(result.MapToDtoList());
     }
 
     [Route("transactionhistory")]
@@ -27,6 +27,7 @@ public class TransactionHistory(
     {
         var command = new AddTransactionHistoryCommand(addTransactionHistoryDto);
         var result = addTransactionHistoryCommandHandler.Handle(command);
-        return Ok(result.MapToDto());
+        return Ok();
+        //TODO return Ok(result.MapToDto());
     }
 }

@@ -28,8 +28,6 @@ public class ApiTransactionHistoryContext : DbContext
         modelBuilder.Entity<TransactionHistory>()
             .HasMany(o => o.Coupons)
             .WithOne()
-            .HasForeignKey(o => o.TransactionHistoryId)
-            .OnDelete(DeleteBehavior.NoAction);
-
+            .HasForeignKey(o => o.TransactionHistoryId);
     }
 }

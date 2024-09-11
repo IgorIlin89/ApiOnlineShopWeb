@@ -16,8 +16,4 @@ public record GetUserByEmailCommand : IGetUserByEmailCommand
         Email = email;
     }
 
-    public bool Equals(IGetUserByEmailCommand? other)
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -14,16 +14,18 @@ public class TransactionHistory
     public List<TransactionHistoryToCoupons>? Coupons { get; set; }
 
 
+    //System.Enum.GetValues(typeof(TypeOfDiscount)); not required, work with exception
     //Make Enum of TypeOfDiscount´, make sure it cant get values that are not allowed
+    //TypeOfDiscountDTO is required
 
     //TODO One To Many with Coupons look into
     //public IReadOnlyCollection<ProductInCart> ProductsInCart { get; set; }
     //public IReadOnlyCollection<ProductInCart> ProductsInCart { get; set; }
 
-    //private TransactionHistory()
-    //{
+    private TransactionHistory()
+    {
 
-    //}
+    }
 
     public static TransactionHistory Create(int UserId,
         List<ProductInCart> products)
@@ -35,6 +37,8 @@ public class TransactionHistory
             ProductsInCart = new List<ProductInCart>(),
             FinalPrice = CalculateFinalPrice(products)
         };
+
+
         //TransactionHistory without Products in cart no sense, without price 
         result.ProductsInCart.Add(new ProductInCart
         {
@@ -48,7 +52,7 @@ public class TransactionHistory
     //    return CalculateFinalPrice(ProductsInCart);
     //}
 
-    public static decimal CalculateFinalPrice(List<ProductInCart> products)
+    private static decimal CalculateFinalPrice(List<ProductInCart> products)
     {
         decimal result = new();
 
@@ -63,9 +67,4 @@ public class TransactionHistory
 
         return result;
     }
-
-    //public decimal CalculateFinalPrice()
-    //{
-
-    //}
 }

@@ -1,15 +1,15 @@
-﻿using ApiTransactionHistory.Application.Commands;
-using ApiTransactionHistory.Database.Interfaces;
-using ApiTransactionHistory.Domain;
+﻿using Transaction.Application.Commands;
+using Transaction.Application.Interfaces;
+using Transaction.Domain.Interfaces;
 
 
-namespace ApiTransactionHistory.Application.Handlers;
+namespace Transaction.Application.Handlers;
 
-public class GetTransactionHistoryListCommandHandler(IApiTransactionHistoryRepository TransactionHistoryRepository) : IGetTransactionHistoryListCommandHandler
+public class GetTransactionListCommandHandler(ITransactionRepository TransactionRepository) : IGetTransactionListCommandHandler
 {
-    public List<TransactionHistory> Handle(GetTransactionHistoryListCommand command)
+    public List<Domain.Transaction> Handle(GetTransactionListCommand command)
     {
-        var result = TransactionHistoryRepository.GetList(command.Id);
+        var result = TransactionRepository.GetList(command.Id);
         return result;
     }
 }

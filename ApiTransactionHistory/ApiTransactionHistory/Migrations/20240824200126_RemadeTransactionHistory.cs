@@ -2,70 +2,70 @@
 
 #nullable disable
 
-namespace ApiTransactionHistory.Migrations
+namespace Transaction.Migrations
 {
     /// <inheritdoc />
-    public partial class RemadeTransactionHistory : Migration
+    public partial class RemadeTransaction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_TransactionHistory_TransactionHistoryToCoupons_TransactionHistoryToCouponsId",
-                table: "TransactionHistory");
+                name: "FK_Transaction_TransactionToCoupons_TransactionToCouponsId",
+                table: "Transaction");
 
             migrationBuilder.DropIndex(
-                name: "IX_TransactionHistory_TransactionHistoryToCouponsId",
-                table: "TransactionHistory");
+                name: "IX_Transaction_TransactionToCouponsId",
+                table: "Transaction");
 
             migrationBuilder.DropColumn(
-                name: "TransactionHistoryToCouponsId",
-                table: "TransactionHistory");
+                name: "TransactionToCouponsId",
+                table: "Transaction");
 
             migrationBuilder.RenameColumn(
                 name: "CouponsId",
-                table: "TransactionHistoryToCoupons",
+                table: "TransactionToCoupons",
                 newName: "Code");
 
             migrationBuilder.AddColumn<double>(
                 name: "AmountOfDiscount",
-                table: "TransactionHistoryToCoupons",
+                table: "TransactionToCoupons",
                 type: "float",
                 nullable: false,
                 defaultValue: 0.0);
 
             migrationBuilder.AddColumn<int>(
                 name: "CouponId",
-                table: "TransactionHistoryToCoupons",
+                table: "TransactionToCoupons",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AddColumn<int>(
                 name: "TypeOfDiscount",
-                table: "TransactionHistoryToCoupons",
+                table: "TransactionToCoupons",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "FinalPrice",
-                table: "TransactionHistory",
+                table: "Transaction",
                 type: "decimal(18,2)",
                 nullable: true,
                 oldClrType: typeof(decimal),
                 oldType: "decimal(18,2)");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionHistoryToCoupons_TransactionHistoryId",
-                table: "TransactionHistoryToCoupons",
-                column: "TransactionHistoryId");
+                name: "IX_TransactionToCoupons_TransactionId",
+                table: "TransactionToCoupons",
+                column: "TransactionId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_TransactionHistoryToCoupons_TransactionHistory_TransactionHistoryId",
-                table: "TransactionHistoryToCoupons",
-                column: "TransactionHistoryId",
-                principalTable: "TransactionHistory",
+                name: "FK_TransactionToCoupons_Transaction_TransactionId",
+                table: "TransactionToCoupons",
+                column: "TransactionId",
+                principalTable: "Transaction",
                 principalColumn: "Id");
         }
 
@@ -73,33 +73,33 @@ namespace ApiTransactionHistory.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_TransactionHistoryToCoupons_TransactionHistory_TransactionHistoryId",
-                table: "TransactionHistoryToCoupons");
+                name: "FK_TransactionToCoupons_Transaction_TransactionId",
+                table: "TransactionToCoupons");
 
             migrationBuilder.DropIndex(
-                name: "IX_TransactionHistoryToCoupons_TransactionHistoryId",
-                table: "TransactionHistoryToCoupons");
+                name: "IX_TransactionToCoupons_TransactionId",
+                table: "TransactionToCoupons");
 
             migrationBuilder.DropColumn(
                 name: "AmountOfDiscount",
-                table: "TransactionHistoryToCoupons");
+                table: "TransactionToCoupons");
 
             migrationBuilder.DropColumn(
                 name: "CouponId",
-                table: "TransactionHistoryToCoupons");
+                table: "TransactionToCoupons");
 
             migrationBuilder.DropColumn(
                 name: "TypeOfDiscount",
-                table: "TransactionHistoryToCoupons");
+                table: "TransactionToCoupons");
 
             migrationBuilder.RenameColumn(
                 name: "Code",
-                table: "TransactionHistoryToCoupons",
+                table: "TransactionToCoupons",
                 newName: "CouponsId");
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "FinalPrice",
-                table: "TransactionHistory",
+                table: "Transaction",
                 type: "decimal(18,2)",
                 nullable: false,
                 defaultValue: 0m,
@@ -108,21 +108,21 @@ namespace ApiTransactionHistory.Migrations
                 oldNullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "TransactionHistoryToCouponsId",
-                table: "TransactionHistory",
+                name: "TransactionToCouponsId",
+                table: "Transaction",
                 type: "int",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionHistory_TransactionHistoryToCouponsId",
-                table: "TransactionHistory",
-                column: "TransactionHistoryToCouponsId");
+                name: "IX_Transaction_TransactionToCouponsId",
+                table: "Transaction",
+                column: "TransactionToCouponsId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_TransactionHistory_TransactionHistoryToCoupons_TransactionHistoryToCouponsId",
-                table: "TransactionHistory",
-                column: "TransactionHistoryToCouponsId",
-                principalTable: "TransactionHistoryToCoupons",
+                name: "FK_Transaction_TransactionToCoupons_TransactionToCouponsId",
+                table: "Transaction",
+                column: "TransactionToCouponsId",
+                principalTable: "TransactionToCoupons",
                 principalColumn: "Id");
         }
     }

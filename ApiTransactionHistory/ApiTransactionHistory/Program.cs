@@ -1,6 +1,6 @@
-using ApiTransactionHistory.Application;
-using ApiTransactionHistory.Database;
-using ApiTransactionHistory.Middlewares;
+using Transaction.Application;
+using Transaction.Database;
+using Transaction.Middlewares;
 using Microsoft.Data.SqlClient;
 using NServiceBus;
 using Serilog;
@@ -12,7 +12,7 @@ try
 {
 
     var bootstrapLoggingConfiguration = new LoggerConfiguration()
-        .WriteTo.File("Logs/ApiTransactionHistory_Fatal.log");
+        .WriteTo.File("Logs/Transaction_Fatal.log");
     Log.Logger = bootstrapLoggingConfiguration.CreateBootstrapLogger();
 
     // Add services to the container.

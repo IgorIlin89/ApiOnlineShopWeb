@@ -1,14 +1,15 @@
-﻿using ApiTransactionHistory.Application.Handlers;
+﻿using Transaction.Application.Handlers;
 using Microsoft.Extensions.DependencyInjection;
+using Transaction.Application.Interfaces;
 
-namespace ApiTransactionHistory.Application;
+namespace Transaction.Application;
 
 public static class ServiceCollectionExtension
 {
     public static IServiceCollection AddApplication(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<IAddTransactionHistoryCommandHandler, AddTransactionHistoryCommandHandler>()
-            .AddScoped<IGetTransactionHistoryListCommandHandler, GetTransactionHistoryListCommandHandler>();
+        serviceCollection.AddScoped<IAddTransactionCommandHandler, AddTransactionCommandHandler>()
+            .AddScoped<IGetTransactionListCommandHandler, GetTransactionListCommandHandler>();
 
         return serviceCollection;
     }

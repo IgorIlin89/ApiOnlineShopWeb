@@ -1,17 +1,17 @@
-﻿using ApiTransactionHistory.Application.Commands;
-using ApiTransactionHistory.Database.Interfaces;
-using ApiTransactionHistory.Domain;
+﻿using Transaction.Application.Commands;
+using Transaction.Application.Interfaces;
+using Transaction.Domain.Interfaces;
 
-namespace ApiTransactionHistory.Application.Handlers;
+namespace Transaction.Application.Handlers;
 
-public class AddTransactionHistoryCommandHandler(IUnitOfWork UnitOfWork,
-    IApiTransactionHistoryRepository apiTransactionHistoryRepository) : IAddTransactionHistoryCommandHandler
+public class AddTransactionCommandHandler(IUnitOfWork UnitOfWork,
+    ITransactionRepository TransactionRepository) : IAddTransactionCommandHandler
 {
-    public TransactionHistory Handle(AddTransactionHistoryCommand command)
+    public Domain.Transaction Handle(AddTransactionCommand command)
     {
-        //command.TransactionHistoryToAdd.CalculateFinalPrice();
+        //command.TransactionToAdd.CalculateFinalPrice();
 
-        var result = apiTransactionHistoryRepository.Add(command.TransactionHistoryToAdd);
+        var result = TransactionRepository.Add(command.TransactionToAdd);
 
         UnitOfWork.SaveChanges();
 

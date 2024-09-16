@@ -1,4 +1,4 @@
-﻿namespace ApiTransactionHistory.Misc;
+﻿namespace Transaction.Misc;
 
 public class HttpClientWrapper
 {

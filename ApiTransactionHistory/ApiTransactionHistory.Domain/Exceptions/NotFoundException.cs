@@ -1,4 +1,4 @@
-﻿namespace ApiTransactionHistory.Domain.Exceptions;
+﻿namespace Transaction.Domain.Exceptions;
 
 public class NotFoundException : Exception
 {

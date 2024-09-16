@@ -1,8 +1,8 @@
-﻿using ApiTransactionHistory.Domain.Dtos;
-using ApiTransactionHistory.Domain.Exceptions;
+﻿using Transaction.Domain.Dtos;
+using Transaction.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-namespace ApiTransactionHistory.Middlewares;
+namespace Transaction.Middlewares;
 
 public class ExceptionHandlingMiddleware
 {

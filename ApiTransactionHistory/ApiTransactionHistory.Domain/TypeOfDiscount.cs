@@ -1,4 +1,4 @@
-﻿namespace ApiTransactionHistory.Domain;
+﻿namespace Transaction.Domain;
 
 public enum TypeOfDiscount
 {

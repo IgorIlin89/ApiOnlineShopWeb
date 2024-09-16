@@ -1,4 +1,4 @@
-﻿using ApiTransactionHistory.Database;
+﻿using Transaction.Database;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -11,7 +11,7 @@ config.AddJsonFile("appsettings.json");
 serviceCollection.AddDatabase(config);
 
 var serviceProvider = serviceCollection.BuildServiceProvider();
-var _dbContext = serviceProvider.GetService<ApiTransactionHistoryContext>();
+var _dbContext = serviceProvider.GetService<TransactionContext>();
 
 var migrator = _dbContext.GetInfrastructure().GetService<IMigrator>();
 migrator.Migrate();

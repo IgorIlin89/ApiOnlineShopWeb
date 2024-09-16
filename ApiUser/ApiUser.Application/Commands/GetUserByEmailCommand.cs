@@ -1,9 +1,8 @@
 ﻿using ApiUser.Domain.Exceptions;
-using ApiUser.Domain.Interfaces.Commands;
 
 namespace ApiUser.Application.Commands;
 
-public record GetUserByEmailCommand : IGetUserByEmailCommand
+public record GetUserByEmailCommand
 {
     public string Email { get; init; }
     public GetUserByEmailCommand(string email)

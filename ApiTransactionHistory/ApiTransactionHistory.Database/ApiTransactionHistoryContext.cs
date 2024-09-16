@@ -1,17 +1,17 @@
-﻿using ApiTransactionHistory.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Transaction.Domain;
 
-namespace ApiTransactionHistory.Database;
+namespace Transaction.Database;
 
-public class ApiTransactionHistoryContext : DbContext
+public class TransactionContext : DbContext
 {
-    public ApiTransactionHistoryContext(DbContextOptions<ApiTransactionHistoryContext> context)
+    public TransactionContext(DbContextOptions<TransactionContext> context)
         : base(context)
     {
 
     }
 
-    public DbSet<TransactionHistory> TransactionHistory { get; set; }
+    public DbSet<Domain.Transaction> Transaction { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,15 +19,15 @@ public class ApiTransactionHistoryContext : DbContext
             .Property(o => o.PricePerProduct)
             .HasColumnType("decimal(10,2)");
 
-        modelBuilder.Entity<TransactionHistory>()
+        modelBuilder.Entity<Domain.Transaction>()
             .HasMany(o => o.ProductsInCart)
             .WithOne()
-            .HasForeignKey(o => o.TransactionHistoryId)
+            .HasForeignKey(o => o.TransactionId)
             .IsRequired();
 
-        modelBuilder.Entity<TransactionHistory>()
+        modelBuilder.Entity<Domain.Transaction>()
             .HasMany(o => o.Coupons)
             .WithOne()
-            .HasForeignKey(o => o.TransactionHistoryId);
+            .HasForeignKey(o => o.TransactionId);
     }
 }

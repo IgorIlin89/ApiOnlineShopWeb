@@ -1,32 +1,32 @@
-﻿using ApiTransactionHistory.Application.Commands;
-using ApiTransactionHistory.Application.Handlers;
-using ApiTransactionHistory.Domain.Dtos;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Transaction.Application.Commands;
+using Transaction.Application.Interfaces;
+using Transaction.Service.Dtos;
 
-namespace ApiTransactionHistory.Controllers;
+namespace Transaction.Controllers;
 
-public class TransactionHistory( // TODO Rename to TransactionController, convention naming controller at end
-    IGetTransactionHistoryListCommandHandler getTransactionHistoryListCommandHandler,
-    IAddTransactionHistoryCommandHandler addTransactionHistoryCommandHandler) : ControllerBase
+public class Transaction( // TODO Rename to TransactionController, convention naming controller at end
+    IGetTransactionListCommandHandler getTransactionListCommandHandler,
+    IAddTransactionCommandHandler addTransactionCommandHandler) : ControllerBase
 {
-    [Route("transactionhistory/list/{id}")]
+    [Route("transaction/list/{id}")]
     [HttpGet]
-    public async Task<ActionResult> GetTransactionHistoryList(int id)
+    public async Task<ActionResult> GetTransactionList(int id)
     {
         //Coding style: _var only when its readonly,
         //with lower case starting in primary consteructor
-        var command = new GetTransactionHistoryListCommand(id);
-        var result = getTransactionHistoryListCommandHandler.Handle(command);
+        var command = new GetTransactionListCommand(id);
+        var result = getTransactionListCommandHandler.Handle(command);
         return Ok();
         //TODO return Ok(result.MapToDtoList());
     }
 
-    [Route("transactionhistory")]
+    [Route("transaction")]
     [HttpPost]
-    public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionHistoryDto addTransactionHistoryDto)
+    public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto)
     {
-        var command = new AddTransactionHistoryCommand(addTransactionHistoryDto);
-        var result = addTransactionHistoryCommandHandler.Handle(command);
+        var command = new AddTransactionCommand(addTransactionDto);
+        var result = addTransactionCommandHandler.Handle(command);
         return Ok();
         //TODO return Ok(result.MapToDto());
     }

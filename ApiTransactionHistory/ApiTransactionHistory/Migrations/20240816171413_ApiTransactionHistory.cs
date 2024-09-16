@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ApiTransactionHistory.Migrations
+namespace Transaction.Migrations
 {
     /// <inheritdoc />
-    public partial class ApiTransactionHistory : Migration
+    public partial class Transaction : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace ApiTransactionHistory.Migrations
                     Count = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     PricePerProduct = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    TransactionHistoryId = table.Column<int>(type: "int", nullable: false)
+                    TransactionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +36,7 @@ namespace ApiTransactionHistory.Migrations
                     Count = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     PricePerProduct = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TransactionHistoryId = table.Column<int>(type: "int", nullable: false)
+                    TransactionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,70 +44,70 @@ namespace ApiTransactionHistory.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionHistory",
+                name: "Transaction",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TransactionHistoryToCouponsId = table.Column<int>(type: "int", nullable: true),
+                    TransactionToCouponsId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PaymentDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     FinalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionHistory", x => x.Id);
+                    table.PrimaryKey("PK_Transaction", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionHistoryToCoupons",
+                name: "TransactionToCoupons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TransactionHistoryId = table.Column<int>(type: "int", nullable: false),
-                    TransactionHistoryId1 = table.Column<int>(type: "int", nullable: false),
+                    TransactionId = table.Column<int>(type: "int", nullable: false),
+                    TransactionId1 = table.Column<int>(type: "int", nullable: false),
                     CouponsId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionHistoryToCoupons", x => x.Id);
+                    table.PrimaryKey("PK_TransactionToCoupons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TransactionHistoryToCoupons_TransactionHistory_TransactionHistoryId1",
-                        column: x => x.TransactionHistoryId1,
-                        principalTable: "TransactionHistory",
+                        name: "FK_TransactionToCoupons_Transaction_TransactionId1",
+                        column: x => x.TransactionId1,
+                        principalTable: "Transaction",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductInCartDto_TransactionHistoryId",
+                name: "IX_ProductInCartDto_TransactionId",
                 table: "ProductInCartDto",
-                column: "TransactionHistoryId");
+                column: "TransactionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionHistory_TransactionHistoryToCouponsId",
-                table: "TransactionHistory",
-                column: "TransactionHistoryToCouponsId");
+                name: "IX_Transaction_TransactionToCouponsId",
+                table: "Transaction",
+                column: "TransactionToCouponsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionHistoryToCoupons_TransactionHistoryId1",
-                table: "TransactionHistoryToCoupons",
-                column: "TransactionHistoryId1");
+                name: "IX_TransactionToCoupons_TransactionId1",
+                table: "TransactionToCoupons",
+                column: "TransactionId1");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ProductInCartDto_TransactionHistory_TransactionHistoryId",
+                name: "FK_ProductInCartDto_Transaction_TransactionId",
                 table: "ProductInCartDto",
-                column: "TransactionHistoryId",
-                principalTable: "TransactionHistory",
+                column: "TransactionId",
+                principalTable: "Transaction",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_TransactionHistory_TransactionHistoryToCoupons_TransactionHistoryToCouponsId",
-                table: "TransactionHistory",
-                column: "TransactionHistoryToCouponsId",
-                principalTable: "TransactionHistoryToCoupons",
+                name: "FK_Transaction_TransactionToCoupons_TransactionToCouponsId",
+                table: "Transaction",
+                column: "TransactionToCouponsId",
+                principalTable: "TransactionToCoupons",
                 principalColumn: "Id");
         }
 
@@ -115,8 +115,8 @@ namespace ApiTransactionHistory.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_TransactionHistoryToCoupons_TransactionHistory_TransactionHistoryId1",
-                table: "TransactionHistoryToCoupons");
+                name: "FK_TransactionToCoupons_Transaction_TransactionId1",
+                table: "TransactionToCoupons");
 
             migrationBuilder.DropTable(
                 name: "ProductInCart");
@@ -125,10 +125,10 @@ namespace ApiTransactionHistory.Migrations
                 name: "ProductInCartDto");
 
             migrationBuilder.DropTable(
-                name: "TransactionHistory");
+                name: "Transaction");
 
             migrationBuilder.DropTable(
-                name: "TransactionHistoryToCoupons");
+                name: "TransactionToCoupons");
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using ApiTransactionHistory.Database.Interfaces;
+﻿using Transaction.Domain.Interfaces;
 
-namespace ApiTransactionHistory.Database;
+namespace Transaction.Database;
 
-public class UnitOfWork(ApiTransactionHistoryContext DbContext) : IUnitOfWork
+public class UnitOfWork(TransactionContext DbContext) : IUnitOfWork
 {
     public void SaveChanges()
     {

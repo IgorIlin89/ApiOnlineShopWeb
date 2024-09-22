@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiTransactionHistory.Domain\Transaction.Domain.csproj" />
+    <ProjectReference Include="..\ApiTransaction.Domain\Transaction.Domain.csproj" />
   </ItemGroup>
 
 </Project>

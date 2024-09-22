@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Transaction.Application.Commands;
 using Transaction.Application.Interfaces;
+using Transaction.Domain;
 using Transaction.Service.Dtos;
+using Transaction.Service.Dtos.Mapping;
 
 namespace Transaction.Controllers;
 
@@ -25,7 +27,10 @@ public class Transaction( // TODO Rename to TransactionController, convention na
     [HttpPost]
     public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto)
     {
-        var command = new AddTransactionCommand(addTransactionDto);
+        List<ProductInCart> productsInCart = addTransactionDto.ProductsInCart.MapToProductInCartList();
+        List<TransactionToCoupons> couponsUsed = addTransactionDto.Coupons.MapToTransactionToCouponsList();
+
+        var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
         var result = addTransactionCommandHandler.Handle(command);
         return Ok();
         //TODO return Ok(result.MapToDto());

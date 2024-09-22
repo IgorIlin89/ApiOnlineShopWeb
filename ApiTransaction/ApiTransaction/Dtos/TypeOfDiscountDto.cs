@@ -1,4 +1,4 @@
-﻿namespace Transaction.Application.Interfaces.Service;
+﻿namespace Transaction.Service.Dtos;
 
 public enum TypeOfDiscountDto
 {

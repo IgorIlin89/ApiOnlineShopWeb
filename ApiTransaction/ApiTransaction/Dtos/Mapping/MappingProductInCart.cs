@@ -1,4 +1,6 @@
-﻿namespace Transaction.Domain.Dtos;
+﻿using Transaction.Domain;
+
+namespace Transaction.Service.Dtos.Mapping;
 
 public static class MappingProductInCart
 {

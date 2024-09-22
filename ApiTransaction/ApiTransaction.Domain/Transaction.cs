@@ -13,7 +13,6 @@ public class Transaction
     public List<ProductInCart> ProductsInCart { get; set; }
     public List<TransactionToCoupons>? Coupons { get; set; }
 
-    //TODO Dtos need to go into service
     //System.Enum.GetValues(typeof(TypeOfDiscount)); not required, work with exception
     //Make Enum of TypeOfDiscount´, make sure it cant get values that are not allowed
     //TypeOfDiscountDTO is required
@@ -27,13 +26,13 @@ public class Transaction
 
     }
 
-    public static Transaction Create(int UserId,
-        List<ProductInCart> products)
+    public static Transaction Create(int userId,
+        List<ProductInCart> products,
+        List<TransactionToCoupons>? coupons)
     {
         var result = new Transaction
         {
-            Id = 1,
-            UserId = 3,
+            UserId = userId,
             ProductsInCart = new List<ProductInCart>(),
             FinalPrice = CalculateFinalPrice(products)
         };

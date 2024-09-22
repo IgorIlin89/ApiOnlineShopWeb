@@ -1,6 +1,6 @@
 ﻿namespace Transaction.Domain.Exceptions;
 
-class EnumException : Exception
+public class EnumException : Exception
 {
     public EnumException(string message)
         : base(message)

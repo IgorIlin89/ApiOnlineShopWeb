@@ -18,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiTransactionHistory.Application\Transaction.Application.csproj" />
-    <ProjectReference Include="..\ApiTransactionHistory.Database\Transaction.Database.csproj" />
-    <ProjectReference Include="..\ApiTransactionHistory.Domain\Transaction.Domain.csproj" />
-    <ProjectReference Include="..\ApiTransactionHistory.NServiceBus.Input\Transaction.NServiceBus.Input.csproj" />
+    <ProjectReference Include="..\ApiTransaction.Application\Transaction.Application.csproj" />
+    <ProjectReference Include="..\ApiTransaction.Database\Transaction.Database.csproj" />
+    <ProjectReference Include="..\ApiTransaction.Domain\Transaction.Domain.csproj" />
+    <ProjectReference Include="..\ApiTransaction.NServiceBus.Input\Transaction.NServiceBus.Input.csproj" />
   </ItemGroup>
 
   <ItemGroup>

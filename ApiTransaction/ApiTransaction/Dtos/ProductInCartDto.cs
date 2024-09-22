@@ -1,8 +1,6 @@
-﻿using Transaction.Application.Interfaces.Service;
+﻿namespace Transaction.Service.Dtos;
 
-namespace Transaction.Domain.Dtos;
-
-public class ProductInCartDto : IProductInCartDto
+public class ProductInCartDto
 {
     public int Id { get; set; }
     public int Count { get; set; }

@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Service", "ApiTransactionHistory\Transaction.Service.csproj", "{48C68ED1-8497-4AE7-93D6-0502431843CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Service", "ApiTransaction\Transaction.Service.csproj", "{48C68ED1-8497-4AE7-93D6-0502431843CE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Domain", "ApiTransactionHistory.Domain\Transaction.Domain.csproj", "{BCEBB181-FCC6-459D-915A-6883FA3712C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Domain", "ApiTransaction.Domain\Transaction.Domain.csproj", "{BCEBB181-FCC6-459D-915A-6883FA3712C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Database", "ApiTransactionHistory.Database\Transaction.Database.csproj", "{12DC499B-9741-4BCA-A98A-1AE2F0B530AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Database", "ApiTransaction.Database\Transaction.Database.csproj", "{12DC499B-9741-4BCA-A98A-1AE2F0B530AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Application", "ApiTransactionHistory.Application\Transaction.Application.csproj", "{C49F0CDD-4ED4-4279-8E5F-E673B5E6C839}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Application", "ApiTransaction.Application\Transaction.Application.csproj", "{C49F0CDD-4ED4-4279-8E5F-E673B5E6C839}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Migrator", "Migrator\Transaction.Migrator.csproj", "{D81E4F0F-C7D4-4223-B561-B8D5C66FA8C0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.NServiceBus.Input", "ApiTransactionHistory.NServiceBus.Input\Transaction.NServiceBus.Input.csproj", "{AB684F70-B7FD-45E9-AE86-0C3AB2E31A34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.NServiceBus.Input", "ApiTransaction.NServiceBus.Input\Transaction.NServiceBus.Input.csproj", "{AB684F70-B7FD-45E9-AE86-0C3AB2E31A34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Input", "Input", "{8C166EED-18B0-4195-AD74-C47FDA232F08}"
 EndProject

@@ -8,7 +8,6 @@ public record AddTransactionCommand
 
     public AddTransactionCommand(int userId, List<ProductInCart> productsInCart, List<TransactionToCoupons> couponsUsed)
     {
-        //TODO TransactionToAdd = addTransactionDto.MapToTransaction();
-        TransactionToAdd.PaymentDate = DateTime.Now;
+        TransactionToAdd = Transaction.Domain.Transaction.Create(userId, productsInCart, couponsUsed);
     }
 }

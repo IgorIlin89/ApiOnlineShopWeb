@@ -9,8 +9,6 @@ public class AddTransactionCommandHandler(IUnitOfWork UnitOfWork,
 {
     public Domain.Transaction Handle(AddTransactionCommand command)
     {
-        //command.TransactionToAdd.CalculateFinalPrice();
-
         var result = TransactionRepository.Add(command.TransactionToAdd);
 
         UnitOfWork.SaveChanges();

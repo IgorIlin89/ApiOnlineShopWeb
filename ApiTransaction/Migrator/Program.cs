@@ -1,21 +1,21 @@
-﻿using Transaction.Database;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿//using Transaction.Database;
+//using Microsoft.EntityFrameworkCore.Infrastructure;
+//using Microsoft.EntityFrameworkCore.Migrations;
+//using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.DependencyInjection;
 
-var serviceCollection = new ServiceCollection();
-var config = new ConfigurationManager();
+//var serviceCollection = new ServiceCollection();
+//var config = new ConfigurationManager();
 
-config.AddJsonFile("appsettings.json");
-serviceCollection.AddDatabase(config);
+//config.AddJsonFile("appsettings.json");
+//serviceCollection.AddDatabase(config);
 
-var serviceProvider = serviceCollection.BuildServiceProvider();
-var _dbContext = serviceProvider.GetService<TransactionContext>();
+//var serviceProvider = serviceCollection.BuildServiceProvider();
+//var _dbContext = serviceProvider.GetService<TransactionContext>();
 
-var migrator = _dbContext.GetInfrastructure().GetService<IMigrator>();
-migrator.Migrate();
+//var migrator = _dbContext.GetInfrastructure().GetService<IMigrator>();
+//migrator.Migrate();
 
-Console.WriteLine("The Migration was successfull");
+//Console.WriteLine("The Migration was successfull");
 
 return 0;

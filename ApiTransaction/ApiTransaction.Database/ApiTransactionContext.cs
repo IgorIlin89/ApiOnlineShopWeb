@@ -29,5 +29,9 @@ public class TransactionContext : DbContext
             .HasMany(o => o.Coupons)
             .WithOne()
             .HasForeignKey(o => o.TransactionId);
+
+        modelBuilder.Entity<Domain.Transaction>().
+            Property(o => o.FinalPrice).
+            HasColumnType("decimal(10,2)");
     }
 }

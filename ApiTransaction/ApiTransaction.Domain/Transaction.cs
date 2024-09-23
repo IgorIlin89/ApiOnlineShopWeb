@@ -32,7 +32,6 @@ public class Transaction
             FinalPrice = CalculateFinalPrice(productsInCart, couponsUsed)
         };
 
-
         return result;
     }
 

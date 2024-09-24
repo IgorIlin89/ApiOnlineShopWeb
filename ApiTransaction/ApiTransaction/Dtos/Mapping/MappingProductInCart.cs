@@ -8,21 +8,41 @@ public static class MappingProductInCart
     {
         ProductInCart result = new ProductInCart
         {
+            Id = productInCartDto.Id,
             ProductId = productInCartDto.ProductId,
             Count = productInCartDto.Count,
             PricePerProduct = productInCartDto.PricePerProduct,
             TransactionId = productInCartDto.TransactionId
         };
 
-        if (productInCartDto.Id is not null)
-        {
-            productInCartDto.Id = productInCartDto.Id.Value;
-        }
-
         return result;
     }
 
     public static List<ProductInCart> MapToProductInCartList(this ICollection<ProductInCartDto> productsInCart)
+    {
+        var listProductsInCart = new List<ProductInCart>();
+
+        foreach (var element in productsInCart)
+        {
+            listProductsInCart.Add(element.MapToProductInCart());
+        }
+
+        return listProductsInCart;
+    }
+
+    public static ProductInCart MapToProductInCart(this AddProductInCartDto productInCartDto)
+    {
+        return new ProductInCart
+        {
+            ProductId = productInCartDto.ProductId,
+            Count = productInCartDto.Count,
+            PricePerProduct = productInCartDto.PricePerProduct,
+            TransactionId = productInCartDto.TransactionId
+        };
+    }
+
+
+    public static List<ProductInCart> MapToProductInCartList(this ICollection<AddProductInCartDto> productsInCart)
     {
         var listProductsInCart = new List<ProductInCart>();
 

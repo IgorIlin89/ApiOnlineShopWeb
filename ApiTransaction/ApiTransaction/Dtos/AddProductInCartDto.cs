@@ -1,8 +1,7 @@
 ﻿namespace Transaction.Service.Dtos;
 
-public class ProductInCartDto
+public class AddProductInCartDto
 {
-    public int Id { get; set; }
     public int Count { get; set; }
     public int ProductId { get; set; }
     public decimal PricePerProduct { get; set; }

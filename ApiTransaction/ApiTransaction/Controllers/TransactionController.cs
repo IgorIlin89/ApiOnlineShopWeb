@@ -15,8 +15,6 @@ public class TransactionController(
     [HttpGet]
     public async Task<ActionResult> GetTransactionList(int id)
     {
-        //Coding style: _var only when its readonly,
-        //with lower case starting in primary consteructor
         var command = new GetTransactionListCommand(id);
         var result = getTransactionListCommandHandler.Handle(command);
         return Ok(result.MapToDtoList());
@@ -26,12 +24,12 @@ public class TransactionController(
     [HttpPost]
     public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto)
     {
-        List<ProductInCart> productsInCart = addTransactionDto.ProductsInCart.MapToProductInCartList();
+        List<ProductInCart> productsInCart = addTransactionDto.AddProductsInCartDto.MapToProductInCartList();
         var couponsUsed = new List<TransactionToCoupons>();
 
-        if (addTransactionDto.Coupons is not null)
+        if (addTransactionDto.AddCouponsDto is not null)
         {
-            couponsUsed = addTransactionDto.Coupons.MapToTransactionToCouponsList();
+            couponsUsed = addTransactionDto.AddCouponsDto.MapToTransactionToCouponsList();
         }
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);

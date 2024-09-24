@@ -20,6 +20,9 @@ public class TransactionContext : DbContext
             .HasColumnType("decimal(10,2)");
 
         modelBuilder.Entity<Domain.Transaction>()
+            .HasKey(o => o.Id);
+
+        modelBuilder.Entity<Domain.Transaction>()
             .HasMany(o => o.ProductsInCart)
             .WithOne()
             .HasForeignKey(o => o.TransactionId)

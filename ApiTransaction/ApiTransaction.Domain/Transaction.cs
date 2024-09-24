@@ -2,16 +2,14 @@
 
 public class Transaction
 {
-    public int Id { get; set; }
-    //public int Id { get; private init; }
-    //public int Id { get; private set; }
-    public int UserId { get; set; }
-    public DateTimeOffset PaymentDate { get; set; }
-    public decimal FinalPrice { get; private set; }
+    public int Id { get; }
+    public int UserId { get; private init; }
+    public DateTimeOffset PaymentDate { get; private init; }
+    public decimal FinalPrice { get; private init; }
+    public List<ProductInCart> ProductsInCart { get; private init; }
+    public List<TransactionToCoupons>? Coupons { get; private init; }
 
     //When using ICollection, EF Core give an Error
-    public List<ProductInCart> ProductsInCart { get; set; }
-    public List<TransactionToCoupons>? Coupons { get; set; }
 
     //public IReadOnlyCollection<ProductInCart> ProductsInCart { get; set; }
     //public IReadOnlyCollection<ProductInCart> ProductsInCart { get; set; }
@@ -27,9 +25,10 @@ public class Transaction
         var result = new Transaction
         {
             UserId = userId,
+            PaymentDate = DateTime.Now,
+            FinalPrice = CalculateFinalPrice(productsInCart, couponsUsed),
             ProductsInCart = productsInCart,
             Coupons = couponsUsed,
-            FinalPrice = CalculateFinalPrice(productsInCart, couponsUsed)
         };
 
         return result;
@@ -51,7 +50,11 @@ public class Transaction
             {
                 if (element.TypeOfDiscount == TypeOfDiscount.Percentage)
                 {
-                    result = (100m - (decimal)element.AmountOfDiscount) * result;
+                    result = ((100m - (decimal)element.AmountOfDiscount) / 100) * result;
+                }
+                else if (element.TypeOfDiscount == TypeOfDiscount.Total)
+                {
+                    result -= (decimal)element.AmountOfDiscount;
                 }
             }
         }

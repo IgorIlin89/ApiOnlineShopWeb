@@ -7,7 +7,7 @@ using Transaction.Service.Dtos.Mapping;
 
 namespace Transaction.Controllers;
 
-public class Transaction( // TODO Rename to TransactionController, convention naming controller at end
+public class TransactionController(
     IGetTransactionListCommandHandler getTransactionListCommandHandler,
     IAddTransactionCommandHandler addTransactionCommandHandler) : ControllerBase
 {
@@ -19,8 +19,7 @@ public class Transaction( // TODO Rename to TransactionController, convention na
         //with lower case starting in primary consteructor
         var command = new GetTransactionListCommand(id);
         var result = getTransactionListCommandHandler.Handle(command);
-        return Ok();
-        //TODO return Ok(result.MapToDtoList());
+        return Ok(result.MapToDtoList());
     }
 
     [Route("transaction")]
@@ -28,11 +27,16 @@ public class Transaction( // TODO Rename to TransactionController, convention na
     public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto)
     {
         List<ProductInCart> productsInCart = addTransactionDto.ProductsInCart.MapToProductInCartList();
-        List<TransactionToCoupons> couponsUsed = addTransactionDto.Coupons.MapToTransactionToCouponsList();
+        var couponsUsed = new List<TransactionToCoupons>();
+
+        if (addTransactionDto.Coupons is not null)
+        {
+            couponsUsed = addTransactionDto.Coupons.MapToTransactionToCouponsList();
+        }
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
         var result = addTransactionCommandHandler.Handle(command);
-        return Ok();
-        //TODO return Ok(result.MapToDto());
+
+        return Ok(result.MapToDto());
     }
 }

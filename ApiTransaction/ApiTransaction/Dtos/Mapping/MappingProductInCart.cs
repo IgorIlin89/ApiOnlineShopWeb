@@ -6,14 +6,20 @@ public static class MappingProductInCart
 {
     public static ProductInCart MapToProductInCart(this ProductInCartDto productInCartDto)
     {
-        return new ProductInCart
+        ProductInCart result = new ProductInCart
         {
-            Id = productInCartDto.Id,
             ProductId = productInCartDto.ProductId,
             Count = productInCartDto.Count,
             PricePerProduct = productInCartDto.PricePerProduct,
             TransactionId = productInCartDto.TransactionId
         };
+
+        if (productInCartDto.Id is not null)
+        {
+            productInCartDto.Id = productInCartDto.Id.Value;
+        }
+
+        return result;
     }
 
     public static List<ProductInCart> MapToProductInCartList(this ICollection<ProductInCartDto> productsInCart)

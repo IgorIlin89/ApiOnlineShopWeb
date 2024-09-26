@@ -2,7 +2,6 @@
 
 public class AddTransactionToCouponsDto
 {
-    public int Id { get; set; }
     public int CouponId { get; set; }
     public string Code { get; set; }
     public double AmountOfDiscount { get; set; }

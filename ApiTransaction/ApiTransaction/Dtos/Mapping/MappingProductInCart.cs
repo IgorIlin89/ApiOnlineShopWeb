@@ -6,7 +6,7 @@ public static class MappingProductInCart
 {
     public static ProductInCart MapToProductInCart(this ProductInCartDto productInCartDto)
     {
-        ProductInCart result = new ProductInCart
+        var result = new ProductInCart
         {
             Id = productInCartDto.Id,
             ProductId = productInCartDto.ProductId,

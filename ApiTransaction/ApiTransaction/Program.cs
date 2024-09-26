@@ -1,9 +1,8 @@
+using Microsoft.Data.SqlClient;
+using Serilog;
 using Transaction.Application;
 using Transaction.Database;
 using Transaction.Middlewares;
-using Microsoft.Data.SqlClient;
-using NServiceBus;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 IEndpointInstance endpointInstance = null;
@@ -80,6 +79,8 @@ try
 
     var endpointContainer = EndpointWithExternallyManagedContainer.Create(endpointConfiguration, builder.Services);
     endpointInstance = await endpointContainer.Start(builder.Services.BuildServiceProvider());
+
+    builder.Services.AddSingleton<NServiceBus.IMessageSession>(endpointInstance);
 
     //End NServiceBus
 

@@ -6,8 +6,8 @@ public record AddTransactionCommand
 {
     public readonly Domain.Transaction TransactionToAdd;
 
-    public AddTransactionCommand(int userId, List<ProductInCart> productsInCart, List<TransactionToCoupons> couponsUsed)
+    public AddTransactionCommand(int userId, List<ProductInCart> addProductsInCart, List<TransactionToCoupons> addCouponsUsed)
     {
-        TransactionToAdd = Transaction.Domain.Transaction.Create(userId, productsInCart, couponsUsed);
+        TransactionToAdd = Transaction.Domain.Transaction.Create(userId, addProductsInCart, addCouponsUsed);
     }
 }

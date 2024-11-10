@@ -1,4 +1,4 @@
-﻿namespace ApiUser.Domain.Dtos;
+﻿namespace ApiUser.Dtos;
 
 public class ChangePasswordDto
 {

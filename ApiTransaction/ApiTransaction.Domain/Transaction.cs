@@ -6,8 +6,8 @@ public class Transaction
     public int UserId { get; private init; }
     public DateTimeOffset PaymentDate { get; private init; }
     public decimal FinalPrice { get; private init; }
-    public List<ProductInCart> ProductsInCart { get; private init; }
-    public List<TransactionToCoupons>? Coupons { get; private init; }
+    public IReadOnlyCollection<ProductInCart> ProductsInCart { get; private init; }
+    public IReadOnlyCollection<TransactionToCoupons>? Coupons { get; private init; }
 
     //When using ICollection, EF Core give an Error
 

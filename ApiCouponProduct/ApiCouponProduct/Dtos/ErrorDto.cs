@@ -1,4 +1,6 @@
-﻿namespace ApiCouponProduct.Domain.Dtos;
+﻿using ApiCouponProduct.Domain;
+
+namespace ApiCouponProduct.Dtos;
 
 public class ErrorDto
 {

@@ -1,7 +1,7 @@
 ﻿using ApiUser.Application.Commands;
 using ApiUser.Application.Handlers.Interfaces;
-using ApiUser.Domain.Dtos;
 using ApiUser.Domain.Interfaces.Handlers;
+using ApiUser.Dtos;
 using Microsoft.AspNetCore.Mvc;
 namespace ApiUser.Controllers;
 
@@ -46,7 +46,8 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPut]
     public async Task<IActionResult> UpdateUser([FromBody] DtoUpdateUser updateUserDto)
     {
-        var commmand = new UpdateUserCommand(updateUserDto);
+        var userToUpdate = updateUserDto.MapToUser();
+        var commmand = new UpdateUserCommand(userToUpdate);
         var user = updateUserCommandHandler.Handle(commmand);
 
         return Ok(user.MapToDto());
@@ -65,7 +66,8 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPost]
     public async Task<IActionResult> AddUser([FromBody] DtoAddUser addUserDto)
     {
-        var command = new AddUserCommand(addUserDto);
+        var userToAdd = addUserDto.MapToUser();
+        var command = new AddUserCommand(userToAdd);
         var user = addUserCommandHandler.Handle(command);
         return Ok(user.MapToDto());
     }
@@ -74,7 +76,8 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPost]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
     {
-        var command = new ChangePasswordCommand(changePasswordDto);
+        var command = new ChangePasswordCommand(changePasswordDto.UserId,
+            changePasswordDto.Password);
         var user = changePasswordCommandHandler.Handle(command);
         return Ok(user.MapToDto());
     }

@@ -2,9 +2,8 @@
 
 public static class MappingTransaction
 {
-    public static TransactionDto MapToDto(this Domain.Transaction transaction)
-    {
-        return new TransactionDto
+    public static TransactionDto MapToDto(this Domain.Transaction transaction) =>
+        new TransactionDto
         {
             Id = transaction.Id,
             UserId = transaction.UserId,
@@ -13,18 +12,9 @@ public static class MappingTransaction
             ProductsInCartDto = transaction.ProductsInCart.MapToDtoList(),
             CouponsDto = transaction.Coupons.MapToDtoList()
         };
-    }
+
 
     public static List<TransactionDto> MapToDtoList(
-        this ICollection<Domain.Transaction> transactionHistories)
-    {
-        var result = new List<TransactionDto>();
-
-        foreach (var element in transactionHistories)
-        {
-            result.Add(element.MapToDto());
-        }
-
-        return result;
-    }
+        this ICollection<Domain.Transaction> transactionHistories) =>
+        transactionHistories.Select(o => o.MapToDto()).ToList();
 }

@@ -1,13 +1,12 @@
 ﻿using ApiUser.Domain;
-using ApiUser.Domain.Dtos;
 namespace ApiUser.Application.Commands;
 
 public record AddUserCommand
 {
     public User UserToAdd { get; init; }
 
-    public AddUserCommand(DtoAddUser userDto)
+    public AddUserCommand(User userToAdd)
     {
-        UserToAdd = userDto.MapToUser();
+        UserToAdd = userToAdd;
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace ApiCouponProduct.Domain.Dtos;
+﻿using ApiCouponProduct.Domain;
 
-public class AddProductDto
+namespace ApiCouponProduct.Dtos;
+
+public class UpdateProductDto
 {
-    public int? ProductId { get; set; }
+    public int ProductId { get; set; }
     public string Name { get; set; }
     public string Producer { get; set; }
     public ProductCategory Category { get; set; }

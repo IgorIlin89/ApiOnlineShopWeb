@@ -1,13 +1,12 @@
 ﻿using ApiCouponProduct.Domain;
-using ApiCouponProduct.Domain.Dtos;
 
 namespace ApiCouponProduct.Application.Commands;
 
 public record UpdateProductCommand
 {
     public Product ProductToUpdate { get; init; }
-    public UpdateProductCommand(UpdateProductDto updateProductDto)
+    public UpdateProductCommand(Product productToUpdate)
     {
-        ProductToUpdate = updateProductDto.MapToProduct();
+        ProductToUpdate = productToUpdate;
     }
 }

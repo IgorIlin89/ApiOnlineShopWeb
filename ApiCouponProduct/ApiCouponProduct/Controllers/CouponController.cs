@@ -1,6 +1,6 @@
 ﻿using ApiCouponProduct.Application.Commands;
 using ApiCouponProduct.Application.Handlers.Interfaces;
-using ApiCouponProduct.Domain.Dtos;
+using ApiCouponProduct.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiCouponProduct.Controllers;
@@ -51,7 +51,8 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
     [HttpPut]
     public async Task<IActionResult> UpdateCoupon([FromBody] UpdateCouponDto updateCouponDto)
     {
-        var command = new UpdateCouponCommand(updateCouponDto);
+        var updateCoupon = updateCouponDto.MapToCoupon();
+        var command = new UpdateCouponCommand(updateCoupon);
         var coupon = updateCouponCommandHandler.Handle(command);
         return Ok(coupon.MapToDto());
     }
@@ -60,7 +61,8 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
     [HttpPost]
     public async Task<IActionResult> AddCoupon([FromBody] AddCouponDto couponDto)
     {
-        var command = new AddCouponCommand(couponDto);
+        var couponToAdd = couponDto.MapToCoupon();
+        var command = new AddCouponCommand(couponToAdd);
         var coupon = addCouponCommandHandler.Handle(command);
         return Ok(coupon.MapToDto());
     }

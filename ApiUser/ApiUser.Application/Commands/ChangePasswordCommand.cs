@@ -1,14 +1,12 @@
-﻿using ApiUser.Domain.Dtos;
-
-namespace ApiUser.Application.Commands;
+﻿namespace ApiUser.Application.Commands;
 
 public record ChangePasswordCommand
 {
     public int Id { get; init; }
     public string Password { get; init; }
-    public ChangePasswordCommand(ChangePasswordDto changePasswordDto)
+    public ChangePasswordCommand(int userId, string password)
     {
-        Id = changePasswordDto.UserId;
-        Password = changePasswordDto.Password;
+        Id = userId;
+        Password = password;
     }
 }

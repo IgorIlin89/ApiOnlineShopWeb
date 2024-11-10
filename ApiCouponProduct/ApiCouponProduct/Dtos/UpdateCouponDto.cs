@@ -1,9 +1,10 @@
-﻿namespace ApiCouponProduct.Domain.Dtos;
+﻿using ApiCouponProduct.Domain;
 
-public class AddCouponDto
+namespace ApiCouponProduct.Dtos;
+
+public class UpdateCouponDto
 {
-    public int? CouponId { get; set; }
-    //[JsonPropertyName("Test")]
+    public int CouponId { get; set; }
     public string Code { get; set; }
     public double AmountOfDiscount { get; set; }
     public TypeOfDiscount TypeOfDiscount { get; set; }

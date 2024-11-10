@@ -1,5 +1,5 @@
-﻿using ApiUser.Domain.Dtos;
-using ApiUser.Domain.Exceptions;
+﻿using ApiUser.Domain.Exceptions;
+using ApiUser.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

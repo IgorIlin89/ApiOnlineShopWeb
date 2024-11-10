@@ -1,6 +1,6 @@
 ﻿using ApiCouponProduct.Domain;
-using ApiCouponProduct.Domain.Dtos;
 using ApiCouponProduct.Domain.Exceptions;
+using ApiCouponProduct.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

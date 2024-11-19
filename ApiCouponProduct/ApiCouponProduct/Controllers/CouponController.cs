@@ -59,11 +59,15 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
 
     [Route("coupon")]
     [HttpPost]
-    public async Task<IActionResult> AddCoupon([FromBody] AddCouponDto couponDto)
+    public async Task<IActionResult> AddCoupon([FromBody] CouponDtoController couponDto)
     {
         var couponToAdd = couponDto.MapToCoupon();
-        var command = new AddCouponCommand(couponToAdd);
+        var command = new AddCouponCommand(couponDto.Code, couponToAdd.AmountOfDiscount,
+            couponDto.TypeOfDiscount.MapToDtoAdapter(), couponDto.MaxNumberOfUses, couponDto.StartDate,
+            couponDto.EndDate);
+
         var coupon = addCouponCommandHandler.Handle(command);
+
         return Ok(coupon.MapToDto());
     }
 

@@ -1,30 +1,63 @@
 ﻿using ApiCouponProduct.Domain;
+using CouponAdapter;
 
 namespace ApiCouponProduct.Dtos;
 
 public static class MappingCoupon
 {
-    public static AddCouponDto MapToDto(this Coupon coupon) =>
-        new AddCouponDto
+    public static TypeOfDiscountDto MapToDto(this TypeOfDiscount typeOfDiscount) =>
+        typeOfDiscount switch
+        {
+            TypeOfDiscount.Percentage => TypeOfDiscountDto.Percentage,
+            TypeOfDiscount.Total => TypeOfDiscountDto.Total,
+            _ => throw new NotImplementedException()
+        };
+
+    public static TypeOfDiscount MapToDto(this TypeOfDiscountDto typeOfDiscountDto) =>
+    typeOfDiscountDto switch
+    {
+        TypeOfDiscountDto.Percentage => TypeOfDiscount.Percentage,
+        TypeOfDiscountDto.Total => TypeOfDiscount.Total,
+        _ => throw new NotImplementedException()
+    };
+
+    public static TypeOfDiscountDtoAdapter MapToDtoAdapter(this TypeOfDiscountDto typeOfDiscount) =>
+        typeOfDiscount switch
+        {
+            TypeOfDiscountDto.Percentage => TypeOfDiscountDtoAdapter.Percentage,
+            TypeOfDiscountDto.Total => TypeOfDiscountDtoAdapter.Total,
+            _ => throw new NotImplementedException()
+        };
+
+    public static TypeOfDiscountDto MapToDtoAdapter(this TypeOfDiscountDtoAdapter typeOfDiscount) =>
+    typeOfDiscount switch
+    {
+        TypeOfDiscountDtoAdapter.Percentage => TypeOfDiscountDto.Percentage,
+        TypeOfDiscountDtoAdapter.Total => TypeOfDiscountDto.Total,
+        _ => throw new NotImplementedException()
+    };
+
+    public static CouponDtoController MapToDto(this Coupon coupon) =>
+        new CouponDtoController
         {
             CouponId = coupon.Id,
             Code = coupon.Code,
             AmountOfDiscount = coupon.AmountOfDiscount,
-            TypeOfDiscount = coupon.TypeOfDiscount,
+            TypeOfDiscount = coupon.TypeOfDiscount.MapToDto(),
             MaxNumberOfUses = coupon.MaxNumberOfUses,
             StartDate = coupon.StartDate,
             EndDate = coupon.EndDate
         };
 
-    public static List<AddCouponDto> MapToDtoList(this List<Coupon> couponList) =>
+    public static List<CouponDtoController> MapToDtoList(this List<Coupon> couponList) =>
         couponList.Select(o => o.MapToDto()).ToList();
-    public static Coupon MapToCoupon(this AddCouponDto couponDto) =>
+    public static Coupon MapToCoupon(this CouponDtoController couponDto) =>
         new Coupon
         {
             Id = couponDto.CouponId is null ? 0 : couponDto.CouponId.Value,
             Code = couponDto.Code,
             AmountOfDiscount = couponDto.AmountOfDiscount,
-            TypeOfDiscount = couponDto.TypeOfDiscount,
+            TypeOfDiscount = couponDto.TypeOfDiscount.MapToDto(),
             MaxNumberOfUses = couponDto.MaxNumberOfUses,
             StartDate = couponDto.StartDate,
             EndDate = couponDto.EndDate
@@ -40,4 +73,5 @@ public static class MappingCoupon
             StartDate = updateCouponDto.StartDate,
             EndDate = updateCouponDto.EndDate,
         };
+
 }

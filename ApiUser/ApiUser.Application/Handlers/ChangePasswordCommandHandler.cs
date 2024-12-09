@@ -9,7 +9,7 @@ public class ChangePasswordCommandHandler(IUnitOfWork UnitOfWork, IUserRepositor
 {
     public User Handle(ChangePasswordCommand command)
     {
-        var user = Repository.ChangePassword(command.Id, command.Password);
+        var user = Repository.ChangePassword(int.Parse(command.UserId), command.Password);
         UnitOfWork.SaveChanges();
         return user;
     }

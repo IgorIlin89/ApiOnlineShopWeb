@@ -31,7 +31,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
 
     [Route("product/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteProduct(string id)
+    public async Task<IActionResult> DeleteProduct(int id)
     {
         var command = new DeleteProductCommand(id);
         deleteProductByIdCommandHandler.Handle(command);
@@ -42,9 +42,13 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
     [HttpPut]
     public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updateProductDto)
     {
-        var updateProduct = updateProductDto.MapToProduct();
-        var command = new UpdateProductCommand(updateProduct);
+        var command = new UpdateProductCommand(updateProductDto.ProductId,
+            updateProductDto.Name,
+            updateProductDto.Producer, updateProductDto.Category,
+            updateProductDto.Picture, updateProductDto.Price);
+
         var product = updateProductCommandHandler.Handle(command);
+
         return Ok(product.MapToDto());
     }
 
@@ -52,8 +56,10 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
     [HttpPost]
     public async Task<IActionResult> AddProduct([FromBody] AddProductDto productDto)
     {
-        var productToAdd = productDto.MapToProduct();
-        var command = new AddProductCommand(productToAdd);
+
+        var command = new AddProductCommand(productDto.Name, productDto.Producer,
+            productDto.Category, productDto.Picture, productDto.Price);
+
         var product = addProductCommandHandler.Handle(command);
         return Ok(product.MapToDto());
     }

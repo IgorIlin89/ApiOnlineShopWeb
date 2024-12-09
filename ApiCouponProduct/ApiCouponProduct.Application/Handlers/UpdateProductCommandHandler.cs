@@ -9,7 +9,17 @@ public class UpdateProductCommandHandler(IUnitOfWork UnitOfWork, IProductReposit
 {
     public Product Handle(UpdateProductCommand command)
     {
-        var product = Repository.Update(command.ProductToUpdate);
+        var productToUpdate = new Product
+        {
+            Id = command.Id,
+            Name = command.Name,
+            Producer = command.Producer,
+            Category = command.Category,
+            Picture = command.Picture,
+            Price = command.Price
+        };
+
+        var product = Repository.Update(productToUpdate);
         UnitOfWork.SaveChanges();
         return product;
     }

@@ -16,7 +16,7 @@ public static class MappingProduct
         };
 
     public static Product MapToProduct(this AddProductDto addProductDto) =>
-        new Product()
+        new Product
         {
             Name = addProductDto.Name,
             Producer = addProductDto.Producer,

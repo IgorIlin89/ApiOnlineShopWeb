@@ -7,8 +7,13 @@ namespace ApiUser.Application.Handlers;
 
 public class GetUserByEmailCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Repository) : IGetUserByEmailCommandHandler
 {
-    public User Handle(GetUserByEmailCommand command)
+    public User? Handle(GetUserByEmailCommand command)
     {
-        return Repository.GetUserByEMail(command.Email);
+
+        //if (string.IsNullOrWhiteSpace(email))
+        //{
+        //    throw new NotFoundException($"Email should not be null when searching for user by email");
+        //}
+        return Repository.GetUserByEMail(command.EMail);
     }
 }

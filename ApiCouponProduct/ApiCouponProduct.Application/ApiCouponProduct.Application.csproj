@@ -13,8 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiCouponProduct.Database\ApiCouponProduct.Database.csproj" />
     <ProjectReference Include="..\ApiCouponProduct.Domain\ApiCouponProduct.Domain.csproj" />
-    <ProjectReference Include="..\CouponAdapter\CouponAdapter.csproj" />
-    <ProjectReference Include="..\ProductAdapter\ProductAdapter.csproj" />
   </ItemGroup>
 
 </Project>

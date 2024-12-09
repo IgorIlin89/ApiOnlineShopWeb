@@ -1,12 +1,8 @@
-﻿using ApiUser.Domain;
-namespace ApiUser.Application.Commands;
+﻿namespace ApiUser.Application.Commands;
 
-public record AddUserCommand
+public record AddUserCommand(string EMail,
+    string GivenName, string Surname, int Age,
+    string Country, string City, string Street,
+    int HouseNumber, int PostalCode, string? Password)
 {
-    public User UserToAdd { get; init; }
-
-    public AddUserCommand(User userToAdd)
-    {
-        UserToAdd = userToAdd;
-    }
 }

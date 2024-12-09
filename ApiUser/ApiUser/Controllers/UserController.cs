@@ -1,5 +1,6 @@
 ﻿using ApiUser.Application.Commands;
 using ApiUser.Application.Handlers.Interfaces;
+using ApiUser.Domain.Exceptions;
 using ApiUser.Domain.Interfaces.Handlers;
 using ApiUser.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -26,8 +27,17 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpGet]
     public async Task<IActionResult> GetUserById(int id)
     {
+        //if (id is null)
+        //    {
+        //        throw new NotFoundException($"The id may not be null when calling 'GetUserById'");
+        //    }
         var command = new GetUserByIdCommand(id.ToString());
         var user = getUserByIdCommandHandler.Handle(command);
+
+        if (user is null)
+        {
+            throw new NotFoundException("No User found");
+        }
 
         return Ok(user.MapToDto());
     }
@@ -39,6 +49,11 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
         var command = new GetUserByEmailCommand(email);
         var user = getUserByEmailCommandHandler.Handle(command);
 
+        if (user is null)
+        {
+            throw new NotFoundException("No User found");
+        }
+
         return Ok(user.MapToDto());
     }
 
@@ -46,8 +61,12 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPut]
     public async Task<IActionResult> UpdateUser([FromBody] DtoUpdateUser updateUserDto)
     {
-        var userToUpdate = updateUserDto.MapToUser();
-        var commmand = new UpdateUserCommand(userToUpdate);
+        var commmand = new UpdateUserCommand(
+            updateUserDto.UserId.ToString(), updateUserDto.EMail,
+            updateUserDto.GivenName, updateUserDto.Surname, updateUserDto.Age,
+            updateUserDto.Country, updateUserDto.City, updateUserDto.Street,
+            updateUserDto.HouseNumber, updateUserDto.PostalCode, updateUserDto.Password);
+
         var user = updateUserCommandHandler.Handle(commmand);
 
         return Ok(user.MapToDto());
@@ -66,9 +85,14 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPost]
     public async Task<IActionResult> AddUser([FromBody] DtoAddUser addUserDto)
     {
-        var userToAdd = addUserDto.MapToUser();
-        var command = new AddUserCommand(userToAdd);
+        var command = new AddUserCommand(
+            addUserDto.EMail,
+            addUserDto.GivenName, addUserDto.Surname, addUserDto.Age,
+            addUserDto.Country, addUserDto.City, addUserDto.Street,
+            addUserDto.HouseNumber, addUserDto.PostalCode, addUserDto.Password);
+
         var user = addUserCommandHandler.Handle(command);
+
         return Ok(user.MapToDto());
     }
 
@@ -76,7 +100,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpPost]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
     {
-        var command = new ChangePasswordCommand(changePasswordDto.UserId,
+        var command = new ChangePasswordCommand(changePasswordDto.UserId.ToString(),
             changePasswordDto.Password);
         var user = changePasswordCommandHandler.Handle(command);
         return Ok(user.MapToDto());

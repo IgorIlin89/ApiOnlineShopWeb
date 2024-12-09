@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCouponProduct.Domain", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrator", "Migrator\Migrator.csproj", "{25E6D398-D8C8-44CF-BDAE-2A93C74988B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CouponAdapter", "CouponAdapter\CouponAdapter.csproj", "{8D45196F-3973-4C4E-A590-8D1BCC1EF276}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductAdapter", "ProductAdapter\ProductAdapter.csproj", "{C5A3D9E7-FC15-4A6A-9F37-CB18ACADF726}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,14 +39,6 @@ Global
 		{25E6D398-D8C8-44CF-BDAE-2A93C74988B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25E6D398-D8C8-44CF-BDAE-2A93C74988B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25E6D398-D8C8-44CF-BDAE-2A93C74988B9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8D45196F-3973-4C4E-A590-8D1BCC1EF276}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8D45196F-3973-4C4E-A590-8D1BCC1EF276}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8D45196F-3973-4C4E-A590-8D1BCC1EF276}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8D45196F-3973-4C4E-A590-8D1BCC1EF276}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5A3D9E7-FC15-4A6A-9F37-CB18ACADF726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5A3D9E7-FC15-4A6A-9F37-CB18ACADF726}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5A3D9E7-FC15-4A6A-9F37-CB18ACADF726}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5A3D9E7-FC15-4A6A-9F37-CB18ACADF726}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

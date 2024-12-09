@@ -2,7 +2,6 @@
 
 public class DtoAddUser
 {
-    public int? UserId { get; set; }
     public string EMail { get; set; }
     public string GivenName { get; set; }
     public string Surname { get; set; }

@@ -2,11 +2,10 @@
 
 namespace ApiCouponProduct.Application.Commands;
 
-public record UpdateProductCommand
+public record UpdateProductCommand(int Id,
+    string Name, string Producer,
+    ProductCategory Category, string Picture,
+    decimal Price)
 {
-    public Product ProductToUpdate { get; init; }
-    public UpdateProductCommand(Product productToUpdate)
-    {
-        ProductToUpdate = productToUpdate;
-    }
+
 }

@@ -2,12 +2,8 @@
 
 namespace ApiCouponProduct.Application.Commands;
 
-public record AddProductCommand
+public record AddProductCommand(string Name,
+    string Producer, ProductCategory Category,
+    string Picture, decimal Price)
 {
-    public Product ProductToAdd { get; init; }
-
-    public AddProductCommand(Product productToAdd)
-    {
-        ProductToAdd = productToAdd;
-    }
 }

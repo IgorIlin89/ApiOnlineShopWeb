@@ -10,7 +10,16 @@ public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository
 {
     public Product Handle(AddProductCommand command)
     {
-        var product = Repository.AddProduct(command.ProductToAdd);
+        var productToAdd = new Product
+        {
+            Name = command.Name,
+            Producer = command.Producer,
+            Category = command.Category,
+            Picture = command.Picture,
+            Price = command.Price
+        };
+
+        var product = Repository.AddProduct(productToAdd);
         UnitOfWork.SaveChanges();
         return product;
     }

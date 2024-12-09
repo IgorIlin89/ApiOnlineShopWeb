@@ -1,5 +1,4 @@
 ﻿using ApiCouponProduct.Domain;
-using CouponAdapter;
 
 namespace ApiCouponProduct.Dtos;
 
@@ -18,22 +17,6 @@ public static class MappingCoupon
     {
         TypeOfDiscountDto.Percentage => TypeOfDiscount.Percentage,
         TypeOfDiscountDto.Total => TypeOfDiscount.Total,
-        _ => throw new NotImplementedException()
-    };
-
-    public static TypeOfDiscountDtoAdapter MapToDtoAdapter(this TypeOfDiscountDto typeOfDiscount) =>
-        typeOfDiscount switch
-        {
-            TypeOfDiscountDto.Percentage => TypeOfDiscountDtoAdapter.Percentage,
-            TypeOfDiscountDto.Total => TypeOfDiscountDtoAdapter.Total,
-            _ => throw new NotImplementedException()
-        };
-
-    public static TypeOfDiscountDto MapToDtoAdapter(this TypeOfDiscountDtoAdapter typeOfDiscount) =>
-    typeOfDiscount switch
-    {
-        TypeOfDiscountDtoAdapter.Percentage => TypeOfDiscountDto.Percentage,
-        TypeOfDiscountDtoAdapter.Total => TypeOfDiscountDto.Total,
         _ => throw new NotImplementedException()
     };
 

@@ -1,10 +1,5 @@
 ﻿namespace Transaction.Application.Commands;
 
-public record GetTransactionListCommand
+public record GetTransactionListCommand(int Id)
 {
-    public int Id;
-    public GetTransactionListCommand(int id)
-    {
-        Id = id;
-    }
 }

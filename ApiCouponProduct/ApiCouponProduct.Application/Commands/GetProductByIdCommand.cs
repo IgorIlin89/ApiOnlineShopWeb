@@ -1,11 +1,5 @@
 ﻿namespace ApiCouponProduct.Application.Commands;
 
-public record GetProductByIdCommand
+public record GetProductByIdCommand(int Id)
 {
-    public int Id { get; init; }
-
-    public GetProductByIdCommand(int id)
-    {
-        Id = id;
-    }
 }

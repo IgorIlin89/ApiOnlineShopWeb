@@ -11,7 +11,17 @@ public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository R
     public Coupon Handle(AddCouponCommand command)
     {
         //TODO
-        //var coupon = Repository.AddCoupon(command.CouponToAdd);
+        var couponToAdd = new Coupon
+        {
+            Code = command.Code,
+            AmountOfDiscount = command.AmountOfDiscount,
+            TypeOfDiscount = command.TypeOfDiscount,
+            MaxNumberOfUses = command.MaxNumberOfUses,
+            StartDate = command.StartDate,
+            EndDate = command.EndDate
+        };
+
+        var coupon = Repository.AddCoupon(couponToAdd);
         UnitOfWork.SaveChanges();
         return new Coupon();
         //return coupon;

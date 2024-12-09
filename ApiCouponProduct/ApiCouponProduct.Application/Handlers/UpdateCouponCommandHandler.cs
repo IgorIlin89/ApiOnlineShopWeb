@@ -9,7 +9,17 @@ public class UpdateCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepositor
 {
     public Coupon Handle(UpdateCouponCommand command)
     {
-        var coupon = Repository.Update(command.CouponToUpdate);
+        var couponToUpdate = new Coupon
+        {
+            Id = command.Id,
+            Code = command.Code,
+            AmountOfDiscount = command.AmountOfDiscount,
+            TypeOfDiscount = command.TypeOfDiscount,
+            MaxNumberOfUses = command.MaxNumberOfUses,
+            StartDate = command.StartDate,
+            EndDate = command.EndDate
+        };
+        var coupon = Repository.Update(couponToUpdate);
         UnitOfWork.SaveChanges();
         return coupon;
     }

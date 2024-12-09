@@ -1,12 +1,5 @@
 ﻿namespace ApiUser.Application.Commands;
 
-public record ChangePasswordCommand
+public record ChangePasswordCommand(string UserId, string Password)
 {
-    public int Id { get; init; }
-    public string Password { get; init; }
-    public ChangePasswordCommand(int userId, string password)
-    {
-        Id = userId;
-        Password = password;
-    }
 }

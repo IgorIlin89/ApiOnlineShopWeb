@@ -2,12 +2,9 @@
 
 namespace ApiCouponProduct.Application.Commands;
 
-public record UpdateCouponCommand
+public record UpdateCouponCommand(int Id, string Code,
+    double AmountOfDiscount, TypeOfDiscount TypeOfDiscount,
+    long? MaxNumberOfUses, DateTimeOffset StartDate,
+    DateTimeOffset EndDate)
 {
-    public Coupon CouponToUpdate { get; init; }
-
-    public UpdateCouponCommand(Coupon updateCouponDto)
-    {
-        CouponToUpdate = updateCouponDto;
-    }
 }

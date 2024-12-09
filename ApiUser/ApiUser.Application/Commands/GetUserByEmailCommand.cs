@@ -1,18 +1,5 @@
-﻿using ApiUser.Domain.Exceptions;
+﻿namespace ApiUser.Application.Commands;
 
-namespace ApiUser.Application.Commands;
-
-public record GetUserByEmailCommand
+public record GetUserByEmailCommand(string EMail)
 {
-    public string Email { get; init; }
-    public GetUserByEmailCommand(string email)
-    {
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            throw new NotFoundException($"Email should not be null when searching for user by email");
-        }
-
-        Email = email;
-    }
-
 }

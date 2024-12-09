@@ -8,7 +8,11 @@ public class DeleteUserCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Re
 {
     public void Handle(DeleteUserCommand command)
     {
-        Repository.Delete(Int32.Parse(command.Id));
+        //if (id is null)
+        //{
+        //    throw new NotFoundException($"No id passed to delete the appropriate user");
+        //}
+        Repository.Delete(Int32.Parse(command.UserId));
         UnitOfWork.SaveChanges();
     }
 }

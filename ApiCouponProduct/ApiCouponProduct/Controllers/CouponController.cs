@@ -40,7 +40,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
 
     [Route("coupon/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteCoupon(string id)
+    public async Task<IActionResult> DeleteCoupon(int id)
     {
         var command = new DeleteCouponCommand(id);
         deleteCouponCommandHandler.Handle(command);
@@ -51,8 +51,11 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
     [HttpPut]
     public async Task<IActionResult> UpdateCoupon([FromBody] UpdateCouponDto updateCouponDto)
     {
-        var updateCoupon = updateCouponDto.MapToCoupon();
-        var command = new UpdateCouponCommand(updateCoupon);
+        var command = new UpdateCouponCommand(updateCouponDto.CouponId, updateCouponDto.Code,
+            updateCouponDto.AmountOfDiscount, updateCouponDto.TypeOfDiscount,
+            updateCouponDto.MaxNumberOfUses, updateCouponDto.StartDate,
+            updateCouponDto.EndDate);
+
         var coupon = updateCouponCommandHandler.Handle(command);
         return Ok(coupon.MapToDto());
     }
@@ -61,9 +64,8 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
     [HttpPost]
     public async Task<IActionResult> AddCoupon([FromBody] CouponDtoController couponDto)
     {
-        var couponToAdd = couponDto.MapToCoupon();
-        var command = new AddCouponCommand(couponDto.Code, couponToAdd.AmountOfDiscount,
-            couponDto.TypeOfDiscount.MapToDtoAdapter(), couponDto.MaxNumberOfUses, couponDto.StartDate,
+        var command = new AddCouponCommand(couponDto.Code, couponDto.AmountOfDiscount,
+            couponDto.TypeOfDiscount.MapToDto(), couponDto.MaxNumberOfUses, couponDto.StartDate,
             couponDto.EndDate);
 
         var coupon = addCouponCommandHandler.Handle(command);

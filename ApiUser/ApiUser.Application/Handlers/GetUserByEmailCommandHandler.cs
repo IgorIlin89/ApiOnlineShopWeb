@@ -5,15 +5,16 @@ using ApiUser.Domain;
 
 namespace ApiUser.Application.Handlers;
 
-public class GetUserByEmailCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Repository) : IGetUserByEmailCommandHandler
+public class GetUserByEmailCommandHandler(IUnitOfWork UnitOfWork,
+    IUserRepository Repository) : IGetUserByEmailCommandHandler
 {
-    public User? Handle(GetUserByEmailCommand command)
+    public async Task<User?> Handle(GetUserByEmailCommand command, CancellationToken cancellationToken)
     {
 
         //if (string.IsNullOrWhiteSpace(email))
         //{
         //    throw new NotFoundException($"Email should not be null when searching for user by email");
         //}
-        return Repository.GetUserByEMail(command.EMail);
+        return await Repository.GetUserByEMail(command.EMail, cancellationToken);
     }
 }

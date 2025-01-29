@@ -21,7 +21,7 @@ public class AddTransactionHandler(IAddTransactionCommandHandler transactionComm
         }
 
         var command = new AddTransactionCommand(message.UserId, addProductsInCartList, addCouponsUsed);
-        var result = transactionCommandHandler.Handle(command);
+        var result = transactionCommandHandler.Handle(command, context.CancellationToken);
 
         //logger.Information($"Transaction with the id {result.Id} has been completed");
     }

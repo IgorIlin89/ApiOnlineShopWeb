@@ -22,9 +22,9 @@ public class Transaction
     }
 
     public static Transaction Create(int userId, List<ProductInCart> productsInCart,
-        List<TransactionToCoupons>? couponsUsed)
+        List<TransactionToCoupons> couponsUsed)
     {
-        if (productsInCart is null || productsInCart.Count == 0)
+        if (productsInCart.Count == 0)
         {
             throw new TransactionException("Exception because no Product");
         }

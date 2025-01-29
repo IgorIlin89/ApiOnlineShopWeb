@@ -3,6 +3,7 @@ using Serilog;
 using Transaction.Application;
 using Transaction.Database;
 using Transaction.Middlewares;
+using Transaction.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 IEndpointInstance endpointInstance = null;
@@ -27,6 +28,7 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen();
     builder.Services.AddApplication();
+    builder.Services.AddGrpc();
 
     var loggingConfiguration = new LoggerConfiguration()
         .ReadFrom.Configuration(builder.Configuration)
@@ -100,6 +102,8 @@ try
     app.UseAuthorization();
 
     app.MapControllers();
+
+    app.MapGrpcService<AddTransactionService>();
 
     await app.RunAsync();
 }

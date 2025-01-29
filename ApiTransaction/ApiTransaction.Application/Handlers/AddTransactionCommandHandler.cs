@@ -7,9 +7,11 @@ namespace Transaction.Application.Handlers;
 public class AddTransactionCommandHandler(IUnitOfWork UnitOfWork,
     ITransactionRepository TransactionRepository) : IAddTransactionCommandHandler
 {
-    public Domain.Transaction Handle(AddTransactionCommand command)
+    public Domain.Transaction Handle(AddTransactionCommand command,
+        CancellationToken cancellationToken)
     {
-        var result = TransactionRepository.Add(command.TransactionToAdd);
+        var result = TransactionRepository.Add(command.TransactionToAdd,
+            cancellationToken);
 
         UnitOfWork.SaveChanges();
 

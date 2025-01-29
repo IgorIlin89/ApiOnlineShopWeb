@@ -4,5 +4,5 @@ namespace ApiUser.Application.Handlers.Interfaces;
 
 public interface IDeleteUserCommandHandler
 {
-    void Handle(DeleteUserCommand command);
+    Task Handle(DeleteUserCommand command, CancellationToken cancellationToken);
 }

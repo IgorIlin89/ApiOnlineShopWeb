@@ -5,7 +5,7 @@ using Transaction.Domain;
 using Transaction.Service.Dtos;
 using Transaction.Service.Dtos.Mapping;
 
-namespace Transaction.Controllers;
+namespace Transaction.Service.Controllers;
 
 public class TransactionController(
     IGetTransactionListCommandHandler getTransactionListCommandHandler,
@@ -22,7 +22,8 @@ public class TransactionController(
 
     [Route("transaction")]
     [HttpPost]
-    public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto)
+    public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto,
+        CancellationToken cancellationToken)
     {
         List<ProductInCart> productsInCart = addTransactionDto.AddProductsInCartDto.MapToProductInCartList();
         var couponsUsed = new List<TransactionToCoupons>();
@@ -33,7 +34,7 @@ public class TransactionController(
         }
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
-        var result = addTransactionCommandHandler.Handle(command);
+        var result = addTransactionCommandHandler.Handle(command, cancellationToken);
 
         return Ok(result.MapToDto());
     }

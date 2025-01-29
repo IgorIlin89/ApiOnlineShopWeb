@@ -12,8 +12,7 @@ public class GetUserByIdCommandHandler(IUserRepository Repository) : IGetUserByI
     //    {
     //        throw new NotFoundException($"The id may not be null when calling 'GetUserById'");
     //    }
-    public User Handle(GetUserByIdCommand command)
-    {
-        return Repository.GetUserById(int.Parse(command.UserId));
-    }
+    public async Task<User?> Handle(GetUserByIdCommand command, CancellationToken cancellationToken)
+        => await Repository.GetUserById(int.Parse(command.UserId), cancellationToken);
+
 }

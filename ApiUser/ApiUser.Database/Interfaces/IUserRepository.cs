@@ -4,11 +4,11 @@ namespace ApiUser.Database.Interfaces;
 
 public interface IUserRepository
 {
-    User AddUser(User user);
-    void Delete(int id);
-    User? GetUserById(int id);
-    User? GetUserByEMail(string email);
-    List<User> GetUserList();
-    User Update(User user);
-    public User ChangePassword(int id, string password);
+    Task<User> AddUser(User user, CancellationToken cancellationToken);
+    Task Delete(int id, CancellationToken cancellationToken);
+    Task<User?> GetUserById(int id, CancellationToken cancellationToken);
+    Task<User?> GetUserByEMail(string email, CancellationToken cancellationToken);
+    Task<List<User>> GetUserList(CancellationToken cancellationToken);
+    Task<User> Update(User user, CancellationToken cancellationToken);
+    Task<User> ChangePassword(int id, string password, CancellationToken cancellationToken);
 }

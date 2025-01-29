@@ -20,7 +20,8 @@ internal class TransactionRepository : ITransactionRepository
             .ToList();
     }
 
-    public Domain.Transaction Add(Domain.Transaction transaction)
+    public Domain.Transaction Add(Domain.Transaction transaction,
+        CancellationToken cancellationToken)
     {
         var result = _context.Transaction.Add(transaction);
         return result.Entity;

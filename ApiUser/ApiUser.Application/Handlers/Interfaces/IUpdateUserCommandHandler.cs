@@ -5,5 +5,5 @@ namespace ApiUser.Application.Handlers.Interfaces;
 
 public interface IUpdateUserCommandHandler
 {
-    User Handle(UpdateUserCommand command);
+    Task<User> Handle(UpdateUserCommand command, CancellationToken cancellationToken);
 }

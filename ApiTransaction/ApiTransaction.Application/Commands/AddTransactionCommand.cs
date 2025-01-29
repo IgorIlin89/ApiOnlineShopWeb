@@ -9,5 +9,8 @@ public record AddTransactionCommand
     public AddTransactionCommand(int userId, List<ProductInCart> addProductsInCart, List<TransactionToCoupons> addCouponsUsed)
     {
         TransactionToAdd = Transaction.Domain.Transaction.Create(userId, addProductsInCart, addCouponsUsed);
+
+
+        //Transaction.Domain.Transaction.Create()
     }
 }

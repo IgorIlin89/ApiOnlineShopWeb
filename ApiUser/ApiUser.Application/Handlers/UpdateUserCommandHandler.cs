@@ -5,9 +5,11 @@ using ApiUser.Domain;
 
 namespace ApiUser.Application.Handlers;
 
-public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Repository) : IUpdateUserCommandHandler
+public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork,
+    IUserRepository Repository) : IUpdateUserCommandHandler
 {
-    public User Handle(UpdateUserCommand command)
+    public async Task<User> Handle(UpdateUserCommand command,
+        CancellationToken cancellationToken)
     {
         var user = new User
         {
@@ -24,7 +26,7 @@ public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Re
             Password = command.Password
         };
 
-        var response = Repository.Update(user);
+        var response = await Repository.Update(user, cancellationToken);
         UnitOfWork.SaveChanges();
         return user;
     }

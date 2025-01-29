@@ -16,23 +16,23 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
 {
     [Route("user/list")]
     [HttpGet]
-    public async Task<IActionResult> GetUserList()
+    public async Task<IActionResult> GetUserList(CancellationToken cancellationToken)
     {
-        var userList = getUserListCommandHandler.Handle();
+        var userList = await getUserListCommandHandler.Handle(cancellationToken);
 
         return Ok(userList.MapToDtoList());
     }
 
     [Route("user/{id}")]
     [HttpGet]
-    public async Task<IActionResult> GetUserById(int id)
+    public async Task<IActionResult> GetUserById(int id, CancellationToken cancellationToken)
     {
         //if (id is null)
         //    {
         //        throw new NotFoundException($"The id may not be null when calling 'GetUserById'");
         //    }
         var command = new GetUserByIdCommand(id.ToString());
-        var user = getUserByIdCommandHandler.Handle(command);
+        var user = await getUserByIdCommandHandler.Handle(command, cancellationToken);
 
         if (user is null)
         {
@@ -44,10 +44,10 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
 
     [Route("user/email/{email}")]
     [HttpGet]
-    public async Task<ActionResult> GetUserByEmail(string email)
+    public async Task<ActionResult> GetUserByEmail(string email, CancellationToken cancellationToken)
     {
         var command = new GetUserByEmailCommand(email);
-        var user = getUserByEmailCommandHandler.Handle(command);
+        var user = await getUserByEmailCommandHandler.Handle(command, cancellationToken);
 
         if (user is null)
         {
@@ -59,7 +59,8 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
 
     [Route("user")]
     [HttpPut]
-    public async Task<IActionResult> UpdateUser([FromBody] DtoUpdateUser updateUserDto)
+    public async Task<IActionResult> UpdateUser([FromBody] DtoUpdateUser updateUserDto,
+        CancellationToken cancellationToken)
     {
         var commmand = new UpdateUserCommand(
             updateUserDto.UserId.ToString(), updateUserDto.EMail,
@@ -67,23 +68,24 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
             updateUserDto.Country, updateUserDto.City, updateUserDto.Street,
             updateUserDto.HouseNumber, updateUserDto.PostalCode, updateUserDto.Password);
 
-        var user = updateUserCommandHandler.Handle(commmand);
+        var user = await updateUserCommandHandler.Handle(commmand, cancellationToken);
 
         return Ok(user.MapToDto());
     }
 
     [Route("user/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteUser(int id)
+    public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
     {
         var command = new DeleteUserCommand(id.ToString());
-        deleteUserCommandHandler.Handle(command);
+        await deleteUserCommandHandler.Handle(command, cancellationToken);
         return Ok();
     }
 
     [Route("user")]
     [HttpPost]
-    public async Task<IActionResult> AddUser([FromBody] DtoAddUser addUserDto)
+    public async Task<IActionResult> AddUser([FromBody] DtoAddUser addUserDto,
+        CancellationToken cancellationToken)
     {
         var command = new AddUserCommand(
             addUserDto.EMail,
@@ -91,18 +93,19 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
             addUserDto.Country, addUserDto.City, addUserDto.Street,
             addUserDto.HouseNumber, addUserDto.PostalCode, addUserDto.Password);
 
-        var user = addUserCommandHandler.Handle(command);
+        var user = await addUserCommandHandler.Handle(command, cancellationToken);
 
         return Ok(user.MapToDto());
     }
 
     [Route("user/changepassword")]
     [HttpPost]
-    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto changePasswordDto,
+        CancellationToken cancellationToken)
     {
         var command = new ChangePasswordCommand(changePasswordDto.UserId.ToString(),
             changePasswordDto.Password);
-        var user = changePasswordCommandHandler.Handle(command);
+        var user = await changePasswordCommandHandler.Handle(command, cancellationToken);
         return Ok(user.MapToDto());
     }
 }

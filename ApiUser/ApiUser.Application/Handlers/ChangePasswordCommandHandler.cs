@@ -5,11 +5,14 @@ using ApiUser.Domain;
 
 namespace ApiUser.Application.Handlers;
 
-public class ChangePasswordCommandHandler(IUnitOfWork UnitOfWork, IUserRepository Repository) : IChangePasswordCommandHandler
+public class ChangePasswordCommandHandler(IUnitOfWork UnitOfWork,
+    IUserRepository Repository) : IChangePasswordCommandHandler
 {
-    public User Handle(ChangePasswordCommand command)
+    public async Task<User> Handle(ChangePasswordCommand command,
+        CancellationToken cancellationToken)
     {
-        var user = Repository.ChangePassword(int.Parse(command.UserId), command.Password);
+        var user = await Repository.ChangePassword(int.Parse(command.UserId), command.Password,
+            cancellationToken);
         UnitOfWork.SaveChanges();
         return user;
     }

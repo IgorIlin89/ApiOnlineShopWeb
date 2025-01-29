@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+ 
+option csharp_namespace = "GrpcTestService.Contracts";
+
+package GrpcAdapter;
+
+service AddTransactionService {
+  rpc AddTransactionRpc (AddTransaction) returns (Transaction);
+}
+
+message AddTransaction {
+  int32 id=1;
+  repeated ProductInCart productsInCart=2;
+  repeated Coupon Coupons=3;
+}
+
+message Transaction{
+	int32 id=1;
+    int32 userId=2;
+    string paymentDate=3;
+    string finalPrice=4;
+    repeated ProductInCart productsInCart=5;
+    repeated Coupon couponList=6;
+
+}
+
+message ProductInCart{
+    int32 count=1;
+    int32 productId=2;
+}
+
+message Coupon{
+    int32 id = 1;
+    string code = 2;
+    double amountOfDiscount = 3;
+    int32 typeOfDiscount = 4;
+    google.protobuf.Int64Value maxNumberOfUses = 5;
+    string startDate = 6;
+    string endDate = 7;
+}
+
+message GetTransactions {
+  int64 userId = 1;
+}
+
+// google.protobuff.StringValue for nullable

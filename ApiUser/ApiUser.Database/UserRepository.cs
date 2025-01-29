@@ -1,6 +1,7 @@
 ﻿using ApiUser.Database.Interfaces;
 using ApiUser.Domain;
 using ApiUser.Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ApiUser.Database;
@@ -14,16 +15,17 @@ internal class UserRepository : IUserRepository
         _context = context;
     }
 
-    public User AddUser(User user)
+    public async Task<User> AddUser(User user, CancellationToken cancellationToken)
     {
-        var existingUser = _context.User.FirstOrDefault(o => o.EMail == user.EMail);
+        var existingUser = await _context.User.FirstOrDefaultAsync(o => o.EMail == user.EMail,
+            cancellationToken);
 
         if (existingUser is not null)
         {
             throw new UserExistsException($"A user with the e-mail {user.EMail} is allready registered");
         }
 
-        var response = _context.User.Add(new User
+        var response = await _context.User.AddAsync(new User
         {
             EMail = user.EMail,
             GivenName = user.GivenName,
@@ -35,14 +37,17 @@ internal class UserRepository : IUserRepository
             HouseNumber = user.HouseNumber,
             PostalCode = user.PostalCode,
             Password = user.Password
-        });
+        },
+        cancellationToken);
 
         return response.Entity;
     }
 
-    public User ChangePassword(int id, string password)
+    public async Task<User> ChangePassword(int id, string password,
+        CancellationToken cancellationToken)
     {
-        var user = _context.User.FirstOrDefault(o => o.Id == id);
+        var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
+            cancellationToken);
 
         if (user is null)
         {
@@ -54,9 +59,11 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id,
+        CancellationToken cancellationToken)
     {
-        var user = _context.User.FirstOrDefault(o => o.Id == id);
+        var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
+            cancellationToken);
 
         if (user is not null)
         {
@@ -64,9 +71,11 @@ internal class UserRepository : IUserRepository
         }
     }
 
-    public User? GetUserByEMail(string email)
+    public async Task<User?> GetUserByEMail(string email,
+        CancellationToken cancellationToken)
     {
-        var user = _context.User.FirstOrDefault(o => o.EMail == email);
+        var user = await _context.User.FirstOrDefaultAsync(o => o.EMail == email,
+            cancellationToken);
 
         if (user is null)
         {
@@ -76,9 +85,11 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public User? GetUserById(int id)
+    public async Task<User?> GetUserById(int id,
+        CancellationToken cancellationToken)
     {
-        var user = _context.User.FirstOrDefault(o => o.Id == id);
+        var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
+            cancellationToken);
 
         if (user is null)
         {
@@ -88,14 +99,16 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public List<User> GetUserList()
+    public async Task<List<User>> GetUserList(CancellationToken cancellationToken)
     {
-        return _context.User.ToList<User>();
+        return await _context.User.ToListAsync<User>(cancellationToken);
     }
 
-    public User Update(User user)
+    public async Task<User> Update(User user,
+        CancellationToken cancellationToken)
     {
-        var userToEdit = _context.User.FirstOrDefault(o => o.Id == user.Id);
+        var userToEdit = await _context.User.FirstOrDefaultAsync(o => o.Id == user.Id,
+            cancellationToken);
 
         if (userToEdit is null)
         {

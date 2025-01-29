@@ -5,9 +5,10 @@ using ApiUser.Domain;
 
 namespace ApiUser.Application.Handlers;
 
-public class AddUserCommandHandler(IUnitOfWork UnitOfWork, IUserRepository UserRepository) : IAddUserCommandHandler
+public class AddUserCommandHandler(IUnitOfWork UnitOfWork,
+    IUserRepository UserRepository) : IAddUserCommandHandler
 {
-    public User Handle(AddUserCommand command)
+    public async Task<User> Handle(AddUserCommand command, CancellationToken cancellationToken)
     {
         var user = new User
         {
@@ -24,7 +25,7 @@ public class AddUserCommandHandler(IUnitOfWork UnitOfWork, IUserRepository UserR
         };
 
 
-        var response = UserRepository.AddUser(user);
+        var response = await UserRepository.AddUser(user, cancellationToken);
         UnitOfWork.SaveChanges();
         return user;
     }

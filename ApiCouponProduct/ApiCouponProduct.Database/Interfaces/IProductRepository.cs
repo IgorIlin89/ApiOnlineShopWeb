@@ -4,9 +4,9 @@ namespace ApiCouponProduct.Database.Interfaces;
 
 public interface IProductRepository
 {
-    Product AddProduct(Product product);
-    void Delete(int id);
-    Product GetProductById(int id);
-    List<Product> GetProductList();
-    Product Update(Product product);
+    Task<Product> AddProduct(Product product, CancellationToken cancellationToken);
+    Task Delete(int id, CancellationToken cancellationToken);
+    Task<Product> GetProductById(int id, CancellationToken cancellationToken);
+    Task<List<Product>> GetProductList(CancellationToken cancellationToken);
+    Task<Product> Update(Product product, CancellationToken cancellationToken);
 }

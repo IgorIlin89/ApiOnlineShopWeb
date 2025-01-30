@@ -6,11 +6,11 @@ using ApiCouponProduct.Domain;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository) : IAddCouponCommandHandler
+public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
+    : IAddCouponCommandHandler
 {
-    public Coupon Handle(AddCouponCommand command)
+    public async Task<Coupon> Handle(AddCouponCommand command, CancellationToken cancellationToken)
     {
-        //TODO
         var couponToAdd = new Coupon
         {
             Code = command.Code,
@@ -21,9 +21,8 @@ public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository R
             EndDate = command.EndDate
         };
 
-        var coupon = Repository.AddCoupon(couponToAdd);
-        UnitOfWork.SaveChanges();
-        return new Coupon();
-        //return coupon;
+        var coupon = await Repository.AddCoupon(couponToAdd, cancellationToken);
+        await UnitOfWork.SaveChanges(cancellationToken);
+        return coupon;
     }
 }

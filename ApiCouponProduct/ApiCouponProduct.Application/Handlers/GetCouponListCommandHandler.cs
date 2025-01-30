@@ -6,8 +6,8 @@ namespace ApiCouponProduct.Application.Handlers;
 
 public class GetCouponListCommandHandler(ICouponRepository Repository) : IGetCouponListCommandHandler
 {
-    public List<Coupon> Handle()
+    public async Task<List<Coupon>> Handle(CancellationToken cancellationToken)
     {
-        return Repository.GetCouponList();
+        return await Repository.GetCouponList(cancellationToken);
     }
 }

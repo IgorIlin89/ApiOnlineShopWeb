@@ -7,8 +7,9 @@ namespace ApiCouponProduct.Application.Handlers;
 
 public class GetProductByIdCommandHandler(IProductRepository Repository) : IGetProductByIdCommandHandler
 {
-    public Product Handle(GetProductByIdCommand command)
+    public async Task<Product> Handle(GetProductByIdCommand command,
+        CancellationToken cancellationToken)
     {
-        return Repository.GetProductById(command.Id);
+        return await Repository.GetProductById(command.Id, cancellationToken);
     }
 }

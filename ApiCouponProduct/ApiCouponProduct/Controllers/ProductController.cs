@@ -14,53 +14,57 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
 {
     [Route("product/list")]
     [HttpGet]
-    public async Task<IActionResult> GetProductList()
+    public async Task<IActionResult> GetProductList(CancellationToken cancellationToken)
     {
-        var productList = getProductListCommandHandler.Handle();
+        var productList = await getProductListCommandHandler.Handle(cancellationToken);
         return Ok(productList.MapToDtoList());
     }
 
     [Route("product/{id}")]
     [HttpGet]
-    public async Task<IActionResult> GetProductById(int id)
+    public async Task<IActionResult> GetProductById(int id,
+        CancellationToken cancellationToken)
     {
         var command = new GetProductByIdCommand(id);
-        var product = getProductByIdCommandHandler.Handle(command);
+        var product = await getProductByIdCommandHandler.Handle(command, cancellationToken);
         return Ok(product.MapToDto());
     }
 
     [Route("product/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteProduct(int id)
+    public async Task<IActionResult> DeleteProduct(int id,
+        CancellationToken cancellationToken)
     {
         var command = new DeleteProductCommand(id);
-        deleteProductByIdCommandHandler.Handle(command);
+        await deleteProductByIdCommandHandler.Handle(command, cancellationToken);
         return Ok();
     }
 
     [Route("product")]
     [HttpPut]
-    public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updateProductDto)
+    public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductDto updateProductDto,
+        CancellationToken cancellationToken)
     {
         var command = new UpdateProductCommand(updateProductDto.ProductId,
             updateProductDto.Name,
             updateProductDto.Producer, updateProductDto.Category,
             updateProductDto.Picture, updateProductDto.Price);
 
-        var product = updateProductCommandHandler.Handle(command);
+        var product = await updateProductCommandHandler.Handle(command, cancellationToken);
 
         return Ok(product.MapToDto());
     }
 
     [Route("product")]
     [HttpPost]
-    public async Task<IActionResult> AddProduct([FromBody] AddProductDto productDto)
+    public async Task<IActionResult> AddProduct([FromBody] AddProductDto productDto,
+        CancellationToken cancellationToken)
     {
 
         var command = new AddProductCommand(productDto.Name, productDto.Producer,
             productDto.Category, productDto.Picture, productDto.Price);
 
-        var product = addProductCommandHandler.Handle(command);
+        var product = await addProductCommandHandler.Handle(command, cancellationToken);
         return Ok(product.MapToDto());
     }
 }

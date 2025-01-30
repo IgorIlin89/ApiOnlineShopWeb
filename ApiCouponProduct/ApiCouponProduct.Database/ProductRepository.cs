@@ -1,6 +1,7 @@
 ﻿using ApiCouponProduct.Database.Interfaces;
 using ApiCouponProduct.Domain;
 using ApiCouponProduct.Domain.Exceptions;
+using Microsoft.EntityFrameworkCore;
 namespace ApiCouponProduct.Database;
 
 internal class ProductRepository : IProductRepository
@@ -12,10 +13,11 @@ internal class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public Product AddProduct(Product product)
+    public async Task<Product> AddProduct(Product product, CancellationToken cancellationToken)
     {
-        var existingProduct = _context.Product.FirstOrDefault(o => o.Name == product.Name &&
-        o.Producer == product.Producer);
+        var existingProduct = await _context.Product.FirstOrDefaultAsync(o => o.Name == product.Name &&
+        o.Producer == product.Producer,
+        cancellationToken);
 
         if (existingProduct is not null)
         {
@@ -23,14 +25,15 @@ internal class ProductRepository : IProductRepository
                 $"{product.Producer}' allready exists");
         }
 
-        var response = _context.Product.Add(product);
+        var response = await _context.Product.AddAsync(product, cancellationToken);
 
         return response.Entity;
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id, CancellationToken cancellationToken)
     {
-        var user = _context.Product.FirstOrDefault(o => o.Id == id);
+        var user = await _context.Product.FirstOrDefaultAsync(o => o.Id == id,
+            cancellationToken);
 
         if (user is not null)
         {
@@ -38,9 +41,10 @@ internal class ProductRepository : IProductRepository
         }
     }
 
-    public Product GetProductById(int id)
+    public async Task<Product> GetProductById(int id, CancellationToken cancellationToken)
     {
-        var product = _context.Product.FirstOrDefault(o => o.Id == id);
+        var product = await _context.Product.FirstOrDefaultAsync(o => o.Id == id,
+            cancellationToken);
 
         if (product is null)
         {
@@ -50,14 +54,15 @@ internal class ProductRepository : IProductRepository
         return product;
     }
 
-    public List<Product> GetProductList()
+    public async Task<List<Product>> GetProductList(CancellationToken cancellationToken)
     {
-        return _context.Product.ToList();
+        return await _context.Product.ToListAsync(cancellationToken);
     }
 
-    public Product Update(Product product)
+    public async Task<Product> Update(Product product, CancellationToken cancellationToken)
     {
-        var productToEdit = _context.Product.FirstOrDefault(o => o.Id == product.Id);
+        var productToEdit = await _context.Product.FirstOrDefaultAsync(o => o.Id == product.Id,
+            cancellationToken);
 
         if (productToEdit is null)
         {

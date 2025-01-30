@@ -14,61 +14,68 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
 {
     [Route("coupon/list")]
     [HttpGet]
-    public async Task<IActionResult> GetCouponList()
+    public async Task<IActionResult> GetCouponList(
+        CancellationToken cancellationToken)
     {
-        var couponList = getCouponListCommandHandler.Handle();
+        var couponList = await getCouponListCommandHandler.Handle(cancellationToken);
         return Ok(couponList.MapToDtoList());
     }
 
     [Route("coupon/{id}")]
     [HttpGet]
-    public async Task<IActionResult> GetCouponById(int id)
+    public async Task<IActionResult> GetCouponById(int id,
+        CancellationToken cancellationToken)
     {
         var command = new GetCouponByIdCommand(id);
-        var coupon = getCouponByIdCommandHandler.Handle(command);
+        var coupon = await getCouponByIdCommandHandler.Handle(command, cancellationToken);
         return Ok(coupon.MapToDto());
     }
 
     [Route("coupon/code/{code}")]
     [HttpGet]
-    public async Task<IActionResult> GetCouponByCode(string code)
+    public async Task<IActionResult> GetCouponByCode(string code,
+        CancellationToken cancellationToken)
     {
         var command = new GetCouponByCodeCommand(code);
-        var coupon = getCouponByCodeCommandHandler.Handle(command);
+        var coupon = await getCouponByCodeCommandHandler.Handle(command,
+            cancellationToken);
         return Ok(coupon.MapToDto());
     }
 
     [Route("coupon/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteCoupon(int id)
+    public async Task<IActionResult> DeleteCoupon(int id,
+        CancellationToken cancellationToken)
     {
         var command = new DeleteCouponCommand(id);
-        deleteCouponCommandHandler.Handle(command);
+        await deleteCouponCommandHandler.Handle(command, cancellationToken);
         return Ok();
     }
 
     [Route("coupon")]
     [HttpPut]
-    public async Task<IActionResult> UpdateCoupon([FromBody] UpdateCouponDto updateCouponDto)
+    public async Task<IActionResult> UpdateCoupon([FromBody] UpdateCouponDto updateCouponDto,
+        CancellationToken cancellationToken)
     {
         var command = new UpdateCouponCommand(updateCouponDto.CouponId, updateCouponDto.Code,
             updateCouponDto.AmountOfDiscount, updateCouponDto.TypeOfDiscount,
             updateCouponDto.MaxNumberOfUses, updateCouponDto.StartDate,
             updateCouponDto.EndDate);
 
-        var coupon = updateCouponCommandHandler.Handle(command);
+        var coupon = await updateCouponCommandHandler.Handle(command, cancellationToken);
         return Ok(coupon.MapToDto());
     }
 
     [Route("coupon")]
     [HttpPost]
-    public async Task<IActionResult> AddCoupon([FromBody] CouponDtoController couponDto)
+    public async Task<IActionResult> AddCoupon([FromBody] CouponDtoController couponDto,
+        CancellationToken cancellationToken)
     {
         var command = new AddCouponCommand(couponDto.Code, couponDto.AmountOfDiscount,
             couponDto.TypeOfDiscount.MapToDto(), couponDto.MaxNumberOfUses, couponDto.StartDate,
             couponDto.EndDate);
 
-        var coupon = addCouponCommandHandler.Handle(command);
+        var coupon = await addCouponCommandHandler.Handle(command, cancellationToken);
 
         return Ok(coupon.MapToDto());
     }

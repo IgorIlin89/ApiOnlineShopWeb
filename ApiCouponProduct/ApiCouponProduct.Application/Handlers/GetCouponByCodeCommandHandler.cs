@@ -5,11 +5,13 @@ using ApiCouponProduct.Domain;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class GetCouponByCodeCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository) : IGetCouponByCodeCommandHandler
+public class GetCouponByCodeCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
+    : IGetCouponByCodeCommandHandler
 {
-    public Coupon Handle(GetCouponByCodeCommand command)
+    public async Task<Coupon> Handle(GetCouponByCodeCommand command,
+        CancellationToken cancellationToken)
     {
-        var coupon = Repository.GetCouponByCode(command.Code);
+        var coupon = await Repository.GetCouponByCode(command.Code, cancellationToken);
         return coupon;
     }
 }

@@ -5,9 +5,10 @@ using ApiCouponProduct.Domain;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class UpdateCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository) : IUpdateCouponCommandHandler
+public class UpdateCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
+    : IUpdateCouponCommandHandler
 {
-    public Coupon Handle(UpdateCouponCommand command)
+    public async Task<Coupon> Handle(UpdateCouponCommand command, CancellationToken cancellationToken)
     {
         var couponToUpdate = new Coupon
         {
@@ -19,8 +20,8 @@ public class UpdateCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepositor
             StartDate = command.StartDate,
             EndDate = command.EndDate
         };
-        var coupon = Repository.Update(couponToUpdate);
-        UnitOfWork.SaveChanges();
+        var coupon = await Repository.Update(couponToUpdate, cancellationToken);
+        await UnitOfWork.SaveChanges(cancellationToken);
         return coupon;
     }
 }

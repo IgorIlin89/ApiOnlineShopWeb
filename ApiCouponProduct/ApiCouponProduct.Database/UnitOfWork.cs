@@ -4,8 +4,8 @@ namespace ApiCouponProduct.Database;
 
 internal class UnitOfWork(ApiCouponProductContext DbContext) : IUnitOfWork
 {
-    public void SaveChanges()
+    public async Task SaveChanges(CancellationToken cancellationToken)
     {
-        DbContext.SaveChanges();
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 }

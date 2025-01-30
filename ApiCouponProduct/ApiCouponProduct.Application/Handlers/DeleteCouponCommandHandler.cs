@@ -5,11 +5,13 @@ using ApiCouponProduct.Database.Interfaces;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class DeleteCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository) : IDeleteCouponCommandHandler
+public class DeleteCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
+    : IDeleteCouponCommandHandler
 {
-    public void Handle(DeleteCouponCommand command)
+    public async Task Handle(DeleteCouponCommand command,
+        CancellationToken cancellationToken)
     {
-        Repository.Delete(command.Id);
-        UnitOfWork.SaveChanges();
+        await Repository.Delete(command.Id, cancellationToken);
+        await UnitOfWork.SaveChanges(cancellationToken);
     }
 }

@@ -6,9 +6,11 @@ using ApiCouponProduct.Domain;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository) : IAddProductCommandHandler
+public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository)
+    : IAddProductCommandHandler
 {
-    public Product Handle(AddProductCommand command)
+    public async Task<Product> Handle(AddProductCommand command,
+        CancellationToken cancellationToken)
     {
         var productToAdd = new Product
         {
@@ -19,8 +21,8 @@ public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository
             Price = command.Price
         };
 
-        var product = Repository.AddProduct(productToAdd);
-        UnitOfWork.SaveChanges();
+        var product = await Repository.AddProduct(productToAdd, cancellationToken);
+        await UnitOfWork.SaveChanges(cancellationToken);
         return product;
     }
 }

@@ -4,11 +4,13 @@ using ApiCouponProduct.Database.Interfaces;
 
 namespace ApiCouponProduct.Application.Handlers;
 
-public class DeleteProductByIdCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository) : IDeleteProductByIdCommandHandler
+public class DeleteProductByIdCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository)
+    : IDeleteProductByIdCommandHandler
 {
-    public void Handle(DeleteProductCommand command)
+    public async Task Handle(DeleteProductCommand command,
+        CancellationToken cancellationToken)
     {
-        Repository.Delete(command.Id);
-        UnitOfWork.SaveChanges();
+        await Repository.Delete(command.Id, cancellationToken);
+        await UnitOfWork.SaveChanges(cancellationToken);
     }
 }

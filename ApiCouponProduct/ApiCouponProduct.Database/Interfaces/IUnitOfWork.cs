@@ -2,5 +2,5 @@
 
 public interface IUnitOfWork
 {
-    void SaveChanges();
+    Task SaveChanges(CancellationToken cancellationToken);
 }

@@ -27,7 +27,7 @@ public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork,
         };
 
         var response = await Repository.Update(user, cancellationToken);
-        UnitOfWork.SaveChanges();
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;
     }
 }

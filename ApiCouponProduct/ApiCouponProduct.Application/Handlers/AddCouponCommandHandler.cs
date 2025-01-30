@@ -21,8 +21,8 @@ public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository R
             EndDate = command.EndDate
         };
 
-        var coupon = await Repository.AddCoupon(couponToAdd, cancellationToken);
-        await UnitOfWork.SaveChanges(cancellationToken);
+        var coupon = await Repository.AddCouponAsync(couponToAdd, cancellationToken);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return coupon;
     }
 }

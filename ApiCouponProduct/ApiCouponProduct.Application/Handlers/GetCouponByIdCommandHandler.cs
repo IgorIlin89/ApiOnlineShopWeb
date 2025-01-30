@@ -10,7 +10,7 @@ public class GetCouponByIdCommandHandler(IUnitOfWork UnitOfWork, ICouponReposito
     public async Task<Coupon> Handle(GetCouponByIdCommand command,
         CancellationToken cancellationToken)
     {
-        var coupon = await Repository.GetCouponById(command.Id, cancellationToken);
+        var coupon = await Repository.GetCouponByIdAsync(command.Id, cancellationToken);
         return coupon;
     }
 }

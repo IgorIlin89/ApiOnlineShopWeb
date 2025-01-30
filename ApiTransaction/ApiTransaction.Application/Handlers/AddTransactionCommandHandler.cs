@@ -7,13 +7,20 @@ namespace Transaction.Application.Handlers;
 public class AddTransactionCommandHandler(IUnitOfWork UnitOfWork,
     ITransactionRepository TransactionRepository) : IAddTransactionCommandHandler
 {
-    public Domain.Transaction Handle(AddTransactionCommand command,
+    public async Task<Domain.Transaction> Handle(AddTransactionCommand command,
         CancellationToken cancellationToken)
     {
-        var result = TransactionRepository.Add(command.TransactionToAdd,
+
+        var transactionToAdd = Transaction.Domain.Transaction.Create(
+            command.UserId,
+            command.ProductInCartList,
+            command.CouponsUsed
+            );
+
+        var result = await TransactionRepository.AddAsync(transactionToAdd,
             cancellationToken);
 
-        UnitOfWork.SaveChanges();
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
 
         return result;
     }

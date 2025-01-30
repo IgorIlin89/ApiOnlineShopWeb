@@ -5,11 +5,14 @@ using Transaction.Domain.Interfaces;
 
 namespace Transaction.Application.Handlers;
 
-public class GetTransactionListCommandHandler(ITransactionRepository TransactionRepository) : IGetTransactionListCommandHandler
+public class GetTransactionListCommandHandler(ITransactionRepository TransactionRepository)
+    : IGetTransactionListCommandHandler
 {
-    public List<Domain.Transaction> Handle(GetTransactionListCommand command)
+    public async Task<List<Domain.Transaction>> Handle(GetTransactionListCommand command,
+        CancellationToken cancellationToken)
     {
-        var result = TransactionRepository.GetList(command.Id);
+        var result = await TransactionRepository.GetListAsync(command.Id,
+            cancellationToken);
         return result;
     }
 }

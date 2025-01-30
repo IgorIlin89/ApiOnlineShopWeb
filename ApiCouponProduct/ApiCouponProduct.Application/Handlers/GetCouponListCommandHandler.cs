@@ -8,6 +8,6 @@ public class GetCouponListCommandHandler(ICouponRepository Repository) : IGetCou
 {
     public async Task<List<Coupon>> Handle(CancellationToken cancellationToken)
     {
-        return await Repository.GetCouponList(cancellationToken);
+        return await Repository.GetCouponListAsync(cancellationToken);
     }
 }

@@ -14,6 +14,6 @@ public class DeleteUserCommandHandler(IUnitOfWork UnitOfWork,
         //    throw new NotFoundException($"No id passed to delete the appropriate user");
         //}
         await Repository.Delete(Int32.Parse(command.UserId), cancellationToken);
-        UnitOfWork.SaveChanges();
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

@@ -13,7 +13,7 @@ internal class ProductRepository : IProductRepository
         _context = context;
     }
 
-    public async Task<Product> AddProduct(Product product, CancellationToken cancellationToken)
+    public async Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken)
     {
         var existingProduct = await _context.Product.FirstOrDefaultAsync(o => o.Name == product.Name &&
         o.Producer == product.Producer,
@@ -30,7 +30,7 @@ internal class ProductRepository : IProductRepository
         return response.Entity;
     }
 
-    public async Task Delete(int id, CancellationToken cancellationToken)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         var user = await _context.Product.FirstOrDefaultAsync(o => o.Id == id,
             cancellationToken);
@@ -41,7 +41,7 @@ internal class ProductRepository : IProductRepository
         }
     }
 
-    public async Task<Product> GetProductById(int id, CancellationToken cancellationToken)
+    public async Task<Product> GetProductByIdAsync(int id, CancellationToken cancellationToken)
     {
         var product = await _context.Product.FirstOrDefaultAsync(o => o.Id == id,
             cancellationToken);
@@ -54,12 +54,12 @@ internal class ProductRepository : IProductRepository
         return product;
     }
 
-    public async Task<List<Product>> GetProductList(CancellationToken cancellationToken)
+    public async Task<List<Product>> GetProductListAsync(CancellationToken cancellationToken)
     {
         return await _context.Product.ToListAsync(cancellationToken);
     }
 
-    public async Task<Product> Update(Product product, CancellationToken cancellationToken)
+    public async Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken)
     {
         var productToEdit = await _context.Product.FirstOrDefaultAsync(o => o.Id == product.Id,
             cancellationToken);

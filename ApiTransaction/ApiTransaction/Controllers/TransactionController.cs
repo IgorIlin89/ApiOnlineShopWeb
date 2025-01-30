@@ -13,10 +13,11 @@ public class TransactionController(
 {
     [Route("transaction/list/{id}")]
     [HttpGet]
-    public async Task<ActionResult> GetTransactionList(int id)
+    public async Task<ActionResult> GetTransactionList(int id,
+        CancellationToken cancellationToken)
     {
         var command = new GetTransactionListCommand(id);
-        var result = getTransactionListCommandHandler.Handle(command);
+        var result = await getTransactionListCommandHandler.Handle(command, cancellationToken);
         return Ok(result.MapToDtoList());
     }
 
@@ -34,7 +35,7 @@ public class TransactionController(
         }
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
-        var result = addTransactionCommandHandler.Handle(command, cancellationToken);
+        var result = await addTransactionCommandHandler.Handle(command, cancellationToken);
 
         return Ok(result.MapToDto());
     }

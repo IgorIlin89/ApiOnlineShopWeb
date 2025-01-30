@@ -2,6 +2,6 @@
 
 public interface ITransactionRepository
 {
-    Transaction Add(Transaction transaction, CancellationToken cancellationToken);
-    List<Transaction> GetList(int id);
+    Task<Domain.Transaction> AddAsync(Transaction transaction, CancellationToken cancellationToken);
+    Task<List<Transaction>> GetListAsync(int id, CancellationToken cancellationToken);
 }

@@ -10,6 +10,6 @@ public class GetProductByIdCommandHandler(IProductRepository Repository) : IGetP
     public async Task<Product> Handle(GetProductByIdCommand command,
         CancellationToken cancellationToken)
     {
-        return await Repository.GetProductById(command.Id, cancellationToken);
+        return await Repository.GetProductByIdAsync(command.Id, cancellationToken);
     }
 }

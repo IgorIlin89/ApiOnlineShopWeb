@@ -2,15 +2,8 @@
 
 namespace Transaction.Application.Commands;
 
-public record AddTransactionCommand
+public record AddTransactionCommand(int UserId,
+    List<ProductInCart> ProductInCartList,
+    List<TransactionToCoupons> CouponsUsed)
 {
-    public readonly Domain.Transaction TransactionToAdd;
-
-    public AddTransactionCommand(int userId, List<ProductInCart> addProductsInCart, List<TransactionToCoupons> addCouponsUsed)
-    {
-        TransactionToAdd = Transaction.Domain.Transaction.Create(userId, addProductsInCart, addCouponsUsed);
-
-
-        //Transaction.Domain.Transaction.Create()
-    }
 }

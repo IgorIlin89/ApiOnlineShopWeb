@@ -10,7 +10,7 @@ public class DeleteProductByIdCommandHandler(IUnitOfWork UnitOfWork, IProductRep
     public async Task Handle(DeleteProductCommand command,
         CancellationToken cancellationToken)
     {
-        await Repository.Delete(command.Id, cancellationToken);
-        await UnitOfWork.SaveChanges(cancellationToken);
+        await Repository.DeleteAsync(command.Id, cancellationToken);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

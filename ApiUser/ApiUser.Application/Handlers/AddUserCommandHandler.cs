@@ -26,7 +26,7 @@ public class AddUserCommandHandler(IUnitOfWork UnitOfWork,
 
 
         var response = await UserRepository.AddUser(user, cancellationToken);
-        UnitOfWork.SaveChanges();
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;
     }
 }

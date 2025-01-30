@@ -4,8 +4,8 @@ namespace Transaction.Database;
 
 public class UnitOfWork(TransactionContext DbContext) : IUnitOfWork
 {
-    public void SaveChanges()
+    public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
-        DbContext.SaveChanges();
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 }

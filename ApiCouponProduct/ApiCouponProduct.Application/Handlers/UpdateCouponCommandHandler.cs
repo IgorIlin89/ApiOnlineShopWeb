@@ -20,8 +20,8 @@ public class UpdateCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepositor
             StartDate = command.StartDate,
             EndDate = command.EndDate
         };
-        var coupon = await Repository.Update(couponToUpdate, cancellationToken);
-        await UnitOfWork.SaveChanges(cancellationToken);
+        var coupon = await Repository.UpdateAsync(couponToUpdate, cancellationToken);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return coupon;
     }
 }

@@ -11,19 +11,20 @@ internal class TransactionRepository : ITransactionRepository
         _context = context;
     }
 
-    public List<Domain.Transaction> GetList(int id)
+    public async Task<List<Domain.Transaction>> GetListAsync(int id,
+        CancellationToken cancellationToken)
     {
-        return _context.Transaction
+        return await _context.Transaction
             .Include(o => o.ProductsInCart)
             .Include(o => o.Coupons)
             .Where(o => o.UserId == id)
-            .ToList();
+            .ToListAsync();
     }
 
-    public Domain.Transaction Add(Domain.Transaction transaction,
+    public async Task<Domain.Transaction> AddAsync(Domain.Transaction transaction,
         CancellationToken cancellationToken)
     {
-        var result = _context.Transaction.Add(transaction);
+        var result = await _context.Transaction.AddAsync(transaction);
         return result.Entity;
     }
 }

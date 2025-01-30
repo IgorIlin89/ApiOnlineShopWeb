@@ -21,8 +21,8 @@ public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository
             Price = command.Price
         };
 
-        var product = await Repository.AddProduct(productToAdd, cancellationToken);
-        await UnitOfWork.SaveChanges(cancellationToken);
+        var product = await Repository.AddProductAsync(productToAdd, cancellationToken);
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return product;
     }
 }

@@ -4,5 +4,6 @@ namespace Transaction.Application.Interfaces;
 
 public interface IGetTransactionListCommandHandler
 {
-    List<Domain.Transaction> Handle(GetTransactionListCommand command);
+    Task<List<Domain.Transaction>> Handle(GetTransactionListCommand command,
+        CancellationToken cancellationToken);
 }

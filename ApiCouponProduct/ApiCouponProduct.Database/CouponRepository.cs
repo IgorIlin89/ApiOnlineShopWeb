@@ -14,7 +14,7 @@ internal class CouponRepository : ICouponRepository
         _context = context;
     }
 
-    public async Task<Coupon> AddCoupon(Coupon coupon, CancellationToken cancellationToken)
+    public async Task<Coupon> AddCouponAsync(Coupon coupon, CancellationToken cancellationToken)
     {
         var existingCoupon = await _context.Coupon.FirstOrDefaultAsync(o => o.Code == coupon.Code,
             cancellationToken);
@@ -25,12 +25,12 @@ internal class CouponRepository : ICouponRepository
                 $"allready exists and can not be added");
         }
 
-        var response = _context.Coupon.Add(coupon);
+        var response = await _context.Coupon.AddAsync(coupon, cancellationToken);
 
         return response.Entity;
     }
 
-    public async Task Delete(int id, CancellationToken cancellationToken)
+    public async Task DeleteAsync(int id, CancellationToken cancellationToken)
     {
         var couponToDelete = await _context.Coupon.FirstOrDefaultAsync(o => o.Id == id,
             cancellationToken);
@@ -43,9 +43,10 @@ internal class CouponRepository : ICouponRepository
         _context.Coupon.Remove(couponToDelete);
     }
 
-    public void Delete(string code)
+    public async Task DeleteAsync(string code, CancellationToken cancellationToken)
     {
-        var couponToDelete = _context.Coupon.FirstOrDefault(o => o.Code == code);
+        var couponToDelete = await _context.Coupon.FirstOrDefaultAsync(o => o.Code == code,
+            cancellationToken);
 
         if (couponToDelete is null)
         {
@@ -55,7 +56,7 @@ internal class CouponRepository : ICouponRepository
         _context.Coupon.Remove(couponToDelete);
     }
 
-    public async Task<Coupon> GetCouponById(int id, CancellationToken cancellationToken)
+    public async Task<Coupon> GetCouponByIdAsync(int id, CancellationToken cancellationToken)
     {
         var coupon = await _context.Coupon.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
 
@@ -67,7 +68,7 @@ internal class CouponRepository : ICouponRepository
         return coupon;
     }
 
-    public async Task<Coupon> GetCouponByCode(string code,
+    public async Task<Coupon> GetCouponByCodeAsync(string code,
         CancellationToken cancellationToken)
     {
         var coupon = await _context.Coupon.FirstOrDefaultAsync(o => o.Code == code, cancellationToken);
@@ -80,12 +81,12 @@ internal class CouponRepository : ICouponRepository
         return coupon;
     }
 
-    public async Task<List<Coupon>> GetCouponList(CancellationToken cancellationToken)
+    public async Task<List<Coupon>> GetCouponListAsync(CancellationToken cancellationToken)
     {
         return await _context.Coupon.ToListAsync(cancellationToken);
     }
 
-    public async Task<Coupon> Update(Coupon coupon, CancellationToken cancellationToken)
+    public async Task<Coupon> UpdateAsync(Coupon coupon, CancellationToken cancellationToken)
     {
         var couponToUpdate = await _context.Coupon.FirstOrDefaultAsync(o => o.Id == coupon.Id,
             cancellationToken);

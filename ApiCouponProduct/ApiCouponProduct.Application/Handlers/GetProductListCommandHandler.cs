@@ -8,6 +8,6 @@ public class GetProductListCommandHandler(IProductRepository Repository) : IGetP
 {
     public async Task<List<Product>> Handle(CancellationToken cancellationToken)
     {
-        return await Repository.GetProductList(cancellationToken);
+        return await Repository.GetProductListAsync(cancellationToken);
     }
 }

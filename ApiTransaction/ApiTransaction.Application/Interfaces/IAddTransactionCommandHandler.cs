@@ -4,5 +4,5 @@ namespace Transaction.Application.Interfaces;
 
 public interface IAddTransactionCommandHandler
 {
-    Domain.Transaction Handle(AddTransactionCommand command, CancellationToken cancellationToken);
+    Task<Domain.Transaction> Handle(AddTransactionCommand command, CancellationToken cancellationToken);
 }

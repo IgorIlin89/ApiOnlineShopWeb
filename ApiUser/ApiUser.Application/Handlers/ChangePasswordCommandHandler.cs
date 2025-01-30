@@ -13,7 +13,7 @@ public class ChangePasswordCommandHandler(IUnitOfWork UnitOfWork,
     {
         var user = await Repository.ChangePassword(int.Parse(command.UserId), command.Password,
             cancellationToken);
-        UnitOfWork.SaveChanges();
+        await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;
     }
 }

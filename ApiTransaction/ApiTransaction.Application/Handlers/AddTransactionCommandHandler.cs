@@ -7,7 +7,7 @@ namespace Transaction.Application.Handlers;
 public class AddTransactionCommandHandler(IUnitOfWork UnitOfWork,
     ITransactionRepository TransactionRepository) : IAddTransactionCommandHandler
 {
-    public async Task<Domain.Transaction> Handle(AddTransactionCommand command,
+    public async Task<Domain.Transaction> HandleAsync(AddTransactionCommand command,
         CancellationToken cancellationToken)
     {
 

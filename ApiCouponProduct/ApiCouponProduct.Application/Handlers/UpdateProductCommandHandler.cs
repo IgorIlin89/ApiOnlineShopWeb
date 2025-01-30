@@ -8,7 +8,7 @@ namespace ApiCouponProduct.Application.Handlers;
 public class UpdateProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository)
     : IUpdateProductCommandHandler
 {
-    public async Task<Product> Handle(UpdateProductCommand command,
+    public async Task<Product> HandleAsync(UpdateProductCommand command,
         CancellationToken cancellationToken)
     {
         var productToUpdate = new Product

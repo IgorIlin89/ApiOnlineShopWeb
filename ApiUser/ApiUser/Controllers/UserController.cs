@@ -18,7 +18,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     [HttpGet]
     public async Task<IActionResult> GetUserList(CancellationToken cancellationToken)
     {
-        var userList = await getUserListCommandHandler.Handle(cancellationToken);
+        var userList = await getUserListCommandHandler.HandleAsync(cancellationToken);
 
         return Ok(userList.MapToDtoList());
     }
@@ -32,7 +32,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
         //        throw new NotFoundException($"The id may not be null when calling 'GetUserById'");
         //    }
         var command = new GetUserByIdCommand(id.ToString());
-        var user = await getUserByIdCommandHandler.Handle(command, cancellationToken);
+        var user = await getUserByIdCommandHandler.HandleAsync(command, cancellationToken);
 
         if (user is null)
         {
@@ -47,7 +47,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     public async Task<ActionResult> GetUserByEmail(string email, CancellationToken cancellationToken)
     {
         var command = new GetUserByEmailCommand(email);
-        var user = await getUserByEmailCommandHandler.Handle(command, cancellationToken);
+        var user = await getUserByEmailCommandHandler.HandleAsync(command, cancellationToken);
 
         if (user is null)
         {
@@ -68,7 +68,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
             updateUserDto.Country, updateUserDto.City, updateUserDto.Street,
             updateUserDto.HouseNumber, updateUserDto.PostalCode, updateUserDto.Password);
 
-        var user = await updateUserCommandHandler.Handle(commmand, cancellationToken);
+        var user = await updateUserCommandHandler.HandleAsync(commmand, cancellationToken);
 
         return Ok(user.MapToDto());
     }
@@ -78,7 +78,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     public async Task<IActionResult> DeleteUser(int id, CancellationToken cancellationToken)
     {
         var command = new DeleteUserCommand(id.ToString());
-        await deleteUserCommandHandler.Handle(command, cancellationToken);
+        await deleteUserCommandHandler.HandleAsync(command, cancellationToken);
         return Ok();
     }
 
@@ -93,7 +93,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
             addUserDto.Country, addUserDto.City, addUserDto.Street,
             addUserDto.HouseNumber, addUserDto.PostalCode, addUserDto.Password);
 
-        var user = await addUserCommandHandler.Handle(command, cancellationToken);
+        var user = await addUserCommandHandler.HandleAsync(command, cancellationToken);
 
         return Ok(user.MapToDto());
     }
@@ -105,7 +105,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
     {
         var command = new ChangePasswordCommand(changePasswordDto.UserId.ToString(),
             changePasswordDto.Password);
-        var user = await changePasswordCommandHandler.Handle(command, cancellationToken);
+        var user = await changePasswordCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(user.MapToDto());
     }
 }

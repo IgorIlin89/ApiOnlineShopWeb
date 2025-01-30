@@ -9,7 +9,7 @@ namespace ApiCouponProduct.Application.Handlers;
 public class AddCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
     : IAddCouponCommandHandler
 {
-    public async Task<Coupon> Handle(AddCouponCommand command, CancellationToken cancellationToken)
+    public async Task<Coupon> HandleAsync(AddCouponCommand command, CancellationToken cancellationToken)
     {
         var couponToAdd = new Coupon
         {

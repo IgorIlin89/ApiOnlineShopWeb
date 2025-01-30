@@ -4,5 +4,5 @@ namespace ApiCouponProduct.Application.Handlers.Interfaces;
 
 public interface IDeleteCouponCommandHandler
 {
-    Task Handle(DeleteCouponCommand command, CancellationToken cancellationToken);
+    Task HandleAsync(DeleteCouponCommand command, CancellationToken cancellationToken);
 }

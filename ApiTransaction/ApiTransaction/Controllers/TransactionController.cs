@@ -17,7 +17,7 @@ public class TransactionController(
         CancellationToken cancellationToken)
     {
         var command = new GetTransactionListCommand(id);
-        var result = await getTransactionListCommandHandler.Handle(command, cancellationToken);
+        var result = await getTransactionListCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(result.MapToDtoList());
     }
 
@@ -35,7 +35,7 @@ public class TransactionController(
         }
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
-        var result = await addTransactionCommandHandler.Handle(command, cancellationToken);
+        var result = await addTransactionCommandHandler.HandleAsync(command, cancellationToken);
 
         return Ok(result.MapToDto());
     }

@@ -9,7 +9,7 @@ namespace ApiCouponProduct.Application.Handlers;
 public class AddProductCommandHandler(IUnitOfWork UnitOfWork, IProductRepository Repository)
     : IAddProductCommandHandler
 {
-    public async Task<Product> Handle(AddProductCommand command,
+    public async Task<Product> HandleAsync(AddProductCommand command,
         CancellationToken cancellationToken)
     {
         var productToAdd = new Product

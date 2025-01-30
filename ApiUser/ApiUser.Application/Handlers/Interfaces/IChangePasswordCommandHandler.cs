@@ -5,5 +5,5 @@ namespace ApiUser.Application.Handlers.Interfaces;
 
 public interface IChangePasswordCommandHandler
 {
-    Task<User> Handle(ChangePasswordCommand command, CancellationToken cancellationToken);
+    Task<User> HandleAsync(ChangePasswordCommand command, CancellationToken cancellationToken);
 }

@@ -8,7 +8,7 @@ namespace ApiCouponProduct.Application.Handlers;
 public class DeleteCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
     : IDeleteCouponCommandHandler
 {
-    public async Task Handle(DeleteCouponCommand command,
+    public async Task HandleAsync(DeleteCouponCommand command,
         CancellationToken cancellationToken)
     {
         await Repository.DeleteAsync(command.Id, cancellationToken);

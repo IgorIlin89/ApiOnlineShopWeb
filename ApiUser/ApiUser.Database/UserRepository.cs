@@ -15,7 +15,7 @@ internal class UserRepository : IUserRepository
         _context = context;
     }
 
-    public async Task<User> AddUser(User user, CancellationToken cancellationToken)
+    public async Task<User> AddUserAsync(User user, CancellationToken cancellationToken)
     {
         var existingUser = await _context.User.FirstOrDefaultAsync(o => o.EMail == user.EMail,
             cancellationToken);
@@ -43,7 +43,7 @@ internal class UserRepository : IUserRepository
         return response.Entity;
     }
 
-    public async Task<User> ChangePassword(int id, string password,
+    public async Task<User> ChangePasswordAsync(int id, string password,
         CancellationToken cancellationToken)
     {
         var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
@@ -59,7 +59,7 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task Delete(int id,
+    public async Task DeleteAsync(int id,
         CancellationToken cancellationToken)
     {
         var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
@@ -71,7 +71,7 @@ internal class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User?> GetUserByEMail(string email,
+    public async Task<User?> GetUserByEMailAsync(string email,
         CancellationToken cancellationToken)
     {
         var user = await _context.User.FirstOrDefaultAsync(o => o.EMail == email,
@@ -85,7 +85,7 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<User?> GetUserById(int id,
+    public async Task<User?> GetUserByIdAsync(int id,
         CancellationToken cancellationToken)
     {
         var user = await _context.User.FirstOrDefaultAsync(o => o.Id == id,
@@ -99,12 +99,12 @@ internal class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<List<User>> GetUserList(CancellationToken cancellationToken)
+    public async Task<List<User>> GetUserListAsync(CancellationToken cancellationToken)
     {
         return await _context.User.ToListAsync<User>(cancellationToken);
     }
 
-    public async Task<User> Update(User user,
+    public async Task<User> UpdateAsync(User user,
         CancellationToken cancellationToken)
     {
         var userToEdit = await _context.User.FirstOrDefaultAsync(o => o.Id == user.Id,

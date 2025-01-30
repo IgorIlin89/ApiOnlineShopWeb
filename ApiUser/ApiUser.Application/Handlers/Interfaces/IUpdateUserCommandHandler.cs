@@ -5,5 +5,5 @@ namespace ApiUser.Application.Handlers.Interfaces;
 
 public interface IUpdateUserCommandHandler
 {
-    Task<User> Handle(UpdateUserCommand command, CancellationToken cancellationToken);
+    Task<User> HandleAsync(UpdateUserCommand command, CancellationToken cancellationToken);
 }

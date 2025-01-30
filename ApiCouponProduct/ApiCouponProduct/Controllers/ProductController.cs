@@ -16,7 +16,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
     [HttpGet]
     public async Task<IActionResult> GetProductList(CancellationToken cancellationToken)
     {
-        var productList = await getProductListCommandHandler.Handle(cancellationToken);
+        var productList = await getProductListCommandHandler.HandleAsync(cancellationToken);
         return Ok(productList.MapToDtoList());
     }
 
@@ -26,7 +26,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
         CancellationToken cancellationToken)
     {
         var command = new GetProductByIdCommand(id);
-        var product = await getProductByIdCommandHandler.Handle(command, cancellationToken);
+        var product = await getProductByIdCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(product.MapToDto());
     }
 
@@ -36,7 +36,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
         CancellationToken cancellationToken)
     {
         var command = new DeleteProductCommand(id);
-        await deleteProductByIdCommandHandler.Handle(command, cancellationToken);
+        await deleteProductByIdCommandHandler.HandleAsync(command, cancellationToken);
         return Ok();
     }
 
@@ -50,7 +50,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
             updateProductDto.Producer, updateProductDto.Category,
             updateProductDto.Picture, updateProductDto.Price);
 
-        var product = await updateProductCommandHandler.Handle(command, cancellationToken);
+        var product = await updateProductCommandHandler.HandleAsync(command, cancellationToken);
 
         return Ok(product.MapToDto());
     }
@@ -64,7 +64,7 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
         var command = new AddProductCommand(productDto.Name, productDto.Producer,
             productDto.Category, productDto.Picture, productDto.Price);
 
-        var product = await addProductCommandHandler.Handle(command, cancellationToken);
+        var product = await addProductCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(product.MapToDto());
     }
 }

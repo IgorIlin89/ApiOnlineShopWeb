@@ -5,5 +5,5 @@ namespace ApiUser.Application.Handlers.Interfaces;
 
 public interface IGetUserByIdCommandHandler
 {
-    Task<User?> Handle(GetUserByIdCommand command, CancellationToken cancellationToken);
+    Task<User?> HandleAsync(GetUserByIdCommand command, CancellationToken cancellationToken);
 }

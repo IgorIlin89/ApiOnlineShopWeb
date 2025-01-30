@@ -2,5 +2,5 @@
 
 public interface IGetUserListCommandHandler
 {
-    Task<List<User>> Handle(CancellationToken cancellationToken);
+    Task<List<User>> HandleAsync(CancellationToken cancellationToken);
 }

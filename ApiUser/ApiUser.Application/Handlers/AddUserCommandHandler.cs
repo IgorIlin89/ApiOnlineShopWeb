@@ -8,7 +8,7 @@ namespace ApiUser.Application.Handlers;
 public class AddUserCommandHandler(IUnitOfWork UnitOfWork,
     IUserRepository UserRepository) : IAddUserCommandHandler
 {
-    public async Task<User> Handle(AddUserCommand command, CancellationToken cancellationToken)
+    public async Task<User> HandleAsync(AddUserCommand command, CancellationToken cancellationToken)
     {
         var user = new User
         {
@@ -25,7 +25,7 @@ public class AddUserCommandHandler(IUnitOfWork UnitOfWork,
         };
 
 
-        var response = await UserRepository.AddUser(user, cancellationToken);
+        var response = await UserRepository.AddUserAsync(user, cancellationToken);
         await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;
     }

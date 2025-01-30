@@ -17,7 +17,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
     public async Task<IActionResult> GetCouponList(
         CancellationToken cancellationToken)
     {
-        var couponList = await getCouponListCommandHandler.Handle(cancellationToken);
+        var couponList = await getCouponListCommandHandler.HandleAsync(cancellationToken);
         return Ok(couponList.MapToDtoList());
     }
 
@@ -27,7 +27,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
         CancellationToken cancellationToken)
     {
         var command = new GetCouponByIdCommand(id);
-        var coupon = await getCouponByIdCommandHandler.Handle(command, cancellationToken);
+        var coupon = await getCouponByIdCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(coupon.MapToDto());
     }
 
@@ -37,7 +37,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
         CancellationToken cancellationToken)
     {
         var command = new GetCouponByCodeCommand(code);
-        var coupon = await getCouponByCodeCommandHandler.Handle(command,
+        var coupon = await getCouponByCodeCommandHandler.HandleAsync(command,
             cancellationToken);
         return Ok(coupon.MapToDto());
     }
@@ -48,7 +48,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
         CancellationToken cancellationToken)
     {
         var command = new DeleteCouponCommand(id);
-        await deleteCouponCommandHandler.Handle(command, cancellationToken);
+        await deleteCouponCommandHandler.HandleAsync(command, cancellationToken);
         return Ok();
     }
 
@@ -62,7 +62,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
             updateCouponDto.MaxNumberOfUses, updateCouponDto.StartDate,
             updateCouponDto.EndDate);
 
-        var coupon = await updateCouponCommandHandler.Handle(command, cancellationToken);
+        var coupon = await updateCouponCommandHandler.HandleAsync(command, cancellationToken);
         return Ok(coupon.MapToDto());
     }
 
@@ -75,7 +75,7 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
             couponDto.TypeOfDiscount.MapToDto(), couponDto.MaxNumberOfUses, couponDto.StartDate,
             couponDto.EndDate);
 
-        var coupon = await addCouponCommandHandler.Handle(command, cancellationToken);
+        var coupon = await addCouponCommandHandler.HandleAsync(command, cancellationToken);
 
         return Ok(coupon.MapToDto());
     }

@@ -8,7 +8,7 @@ namespace ApiCouponProduct.Application.Handlers;
 public class GetCouponByCodeCommandHandler(IUnitOfWork UnitOfWork, ICouponRepository Repository)
     : IGetCouponByCodeCommandHandler
 {
-    public async Task<Coupon> Handle(GetCouponByCodeCommand command,
+    public async Task<Coupon> HandleAsync(GetCouponByCodeCommand command,
         CancellationToken cancellationToken)
     {
         var coupon = await Repository.GetCouponByCodeAsync(command.Code, cancellationToken);

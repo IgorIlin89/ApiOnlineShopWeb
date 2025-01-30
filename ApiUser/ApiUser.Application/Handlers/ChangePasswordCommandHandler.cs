@@ -8,10 +8,10 @@ namespace ApiUser.Application.Handlers;
 public class ChangePasswordCommandHandler(IUnitOfWork UnitOfWork,
     IUserRepository Repository) : IChangePasswordCommandHandler
 {
-    public async Task<User> Handle(ChangePasswordCommand command,
+    public async Task<User> HandleAsync(ChangePasswordCommand command,
         CancellationToken cancellationToken)
     {
-        var user = await Repository.ChangePassword(int.Parse(command.UserId), command.Password,
+        var user = await Repository.ChangePasswordAsync(int.Parse(command.UserId), command.Password,
             cancellationToken);
         await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;

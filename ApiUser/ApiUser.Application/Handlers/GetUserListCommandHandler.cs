@@ -7,7 +7,7 @@ namespace ApiUser.Application.Handlers;
 public class GetUserListCommandHandler(IUnitOfWork UnitOfWork,
     IUserRepository Repository) : IGetUserListCommandHandler
 {
-    public async Task<List<User>> Handle(CancellationToken cancellationToken)
-        => await Repository.GetUserList(cancellationToken);
+    public async Task<List<User>> HandleAsync(CancellationToken cancellationToken)
+        => await Repository.GetUserListAsync(cancellationToken);
 
 }

@@ -8,7 +8,7 @@ namespace Transaction.Application.Handlers;
 public class GetTransactionListCommandHandler(ITransactionRepository TransactionRepository)
     : IGetTransactionListCommandHandler
 {
-    public async Task<List<Domain.Transaction>> Handle(GetTransactionListCommand command,
+    public async Task<List<Domain.Transaction>> HandleAsync(GetTransactionListCommand command,
         CancellationToken cancellationToken)
     {
         var result = await TransactionRepository.GetListAsync(command.Id,

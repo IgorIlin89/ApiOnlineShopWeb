@@ -8,7 +8,7 @@ namespace ApiUser.Application.Handlers;
 public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork,
     IUserRepository Repository) : IUpdateUserCommandHandler
 {
-    public async Task<User> Handle(UpdateUserCommand command,
+    public async Task<User> HandleAsync(UpdateUserCommand command,
         CancellationToken cancellationToken)
     {
         var user = new User
@@ -26,7 +26,7 @@ public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork,
             Password = command.Password
         };
 
-        var response = await Repository.Update(user, cancellationToken);
+        var response = await Repository.UpdateAsync(user, cancellationToken);
         await UnitOfWork.SaveChangesAsync(cancellationToken);
         return user;
     }

@@ -5,5 +5,5 @@ namespace ApiCouponProduct.Application.Handlers.Interfaces;
 
 public interface IGetCouponByCodeCommandHandler
 {
-    Task<Coupon> Handle(GetCouponByCodeCommand command, CancellationToken cancellationToken);
+    Task<Coupon> HandleAsync(GetCouponByCodeCommand command, CancellationToken cancellationToken);
 }

@@ -7,7 +7,7 @@ namespace Transaction.Application.Handlers;
 public class AddTransactionCommandGrpcHandler(IUnitOfWork UnitOfWork,
     ITransactionRepository TransactionRepository) : IAddTransactionCommandGrpcHandler
 {
-    public async Task<Transaction.Domain.Transaction> Handle(AddTransactionCommand command,
+    public async Task<Transaction.Domain.Transaction> HandleAsync(AddTransactionCommand command,
         CancellationToken cancellationToken)
     {
         var transactionToAdd = Transaction.Domain.Transaction.Create(
@@ -16,8 +16,11 @@ public class AddTransactionCommandGrpcHandler(IUnitOfWork UnitOfWork,
             command.CouponsUsed
             );
 
-        var result = await TransactionRepository.AddAsync(transactionToAdd, cancellationToken);
+        var result = await TransactionRepository.AddAsync(transactionToAdd,
+            cancellationToken);
+
         await UnitOfWork.SaveChangesAsync(cancellationToken);
+
         return result;
     }
 }

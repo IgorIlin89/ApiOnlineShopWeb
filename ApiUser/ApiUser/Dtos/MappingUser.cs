@@ -4,8 +4,8 @@ namespace ApiUser.Dtos;
 
 public static class MappingUser
 {
-    public static DtoUpdateUser MapToDto(this User user) =>
-         new DtoUpdateUser
+    public static DtoUser MapToDto(this User user) =>
+         new DtoUser
          {
              UserId = user.Id,
              EMail = user.EMail,
@@ -21,7 +21,7 @@ public static class MappingUser
          };
 
 
-    public static User MapToUser(this DtoUpdateUser userDto) =>
+    public static User MapToUser(this DtoUser userDto) =>
 
         new User
         {
@@ -55,6 +55,6 @@ public static class MappingUser
             PostalCode = userDto.PostalCode,
         };
 
-    public static List<DtoUpdateUser> MapToDtoList(this List<User> userList) =>
+    public static List<DtoUser> MapToDtoList(this List<User> userList) =>
         userList.Select(o => o.MapToDto()).ToList();
 }

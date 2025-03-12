@@ -13,10 +13,9 @@ public static class MappingToGrpc
         _ => throw new NotImplementedException(),
     };
 
-    public static Coupon MapToGrpc(this Transaction.Domain.TransactionToCoupons coupon)
-        => new Coupon
+    public static TransactionCoupon MapToGrpc(this Transaction.Domain.Coupon coupon)
+        => new TransactionCoupon
         {
-            Id = coupon.CouponId,
             Code = coupon.Code,
             AmountOfDiscount = coupon.AmountOfDiscount,
             TypeOfDiscount = coupon.TypeOfDiscount.MapToGrpc(),
@@ -25,12 +24,10 @@ public static class MappingToGrpc
     public static ProductInCart MapToGrpc(this Transaction.Domain.ProductInCart productInCart)
        => new ProductInCart
        {
+           ProductId = productInCart.ProductId,
+           Count = productInCart.Count,
+           PricePerProduct = productInCart.PricePerProduct.ToString()
        };
-
-    public static List<Coupon> MapToGrpc(this IReadOnlyCollection<Transaction.Domain.TransactionToCoupons> list)
-        => list.Select(o => o.MapToGrpc()).ToList();
-
-
 
     public static GrpcTestService.Contracts.Transaction MapToGrpc(this Transaction.Domain.Transaction transaction)
     {
@@ -41,16 +38,19 @@ public static class MappingToGrpc
             PaymentDate = transaction.PaymentDate.ToString(),
             FinalPrice = transaction.FinalPrice.ToString(),
             ProductsInCart = { transaction.ProductsInCart.Select(o => o.MapToGrpc()) },
+            CouponList = { transaction.Coupons.Select(o => o.MapToGrpc()) }
         };
 
-        if (transaction.Coupons is not null)
-        {
-            result.CouponList.AddRange(transaction.Coupons.MapToGrpc());
-        }
-
         return result;
-
     }
 
+    public static GrpcTestService.Contracts.TransactionList MapToGrpcList(
+        this IReadOnlyCollection<Transaction.Domain.Transaction> list)
+    {
 
+        return new TransactionList
+        {
+            TransactionList_ = { list.Select(o => o.MapToGrpc()) }
+        };
+    }
 }

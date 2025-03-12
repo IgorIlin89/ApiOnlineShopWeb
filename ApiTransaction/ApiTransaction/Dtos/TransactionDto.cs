@@ -6,6 +6,6 @@ public class TransactionDto
     public int UserId { get; init; }
     public DateTimeOffset PaymentDate { get; init; }
     public decimal FinalPrice { get; init; }
-    public List<ProductInCartDto> ProductsInCartDto { get; init; }
-    public List<TransactionToCouponsDto>? CouponsDto { get; init; }
+    public IReadOnlyCollection<ProductInCartDto> ProductsInCartDto { get; init; }
+    public IReadOnlyCollection<TransactionCouponDto> CouponsDto { get; init; }
 }

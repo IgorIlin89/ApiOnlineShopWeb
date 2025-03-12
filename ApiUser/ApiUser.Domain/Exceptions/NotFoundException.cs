@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApiUser.Domain.Exceptions;
+﻿namespace ApiUser.Domain.Exceptions;
 
 public class NotFoundException : Exception
 {
@@ -15,7 +9,7 @@ public class NotFoundException : Exception
     }
 
     public NotFoundException(string message, Exception exception)
-        :base(message, exception)
+        : base(message, exception)
     {
 
     }

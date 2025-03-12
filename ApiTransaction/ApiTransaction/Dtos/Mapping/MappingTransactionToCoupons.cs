@@ -4,42 +4,35 @@ namespace Transaction.Service.Dtos.Mapping;
 
 public static class MappingTransactionToCoupons
 {
-    public static TransactionToCoupons MapToTransactionToCoupons(
-        this TransactionToCouponsDto transactionToCouponsDto) =>
-        new TransactionToCoupons
+    public static Coupon MapToDomain(
+        this TransactionCouponDto transactionToCouponsDto) =>
+        new Coupon
         {
-            Id = transactionToCouponsDto.Id,
-            TransactionId = transactionToCouponsDto.TransactionDtoId,
-            CouponId = transactionToCouponsDto.CouponId,
             Code = transactionToCouponsDto.Code,
             AmountOfDiscount = transactionToCouponsDto.AmountOfDiscount,
             TypeOfDiscount = transactionToCouponsDto.TypeOfDiscountDto.MapToTypeOfDiscount()
         };
-    public static TransactionToCouponsDto MapToDto(
-        this TransactionToCoupons transactionToCoupons) =>
-         new TransactionToCouponsDto
+    public static TransactionCouponDto MapToDto(
+        this Coupon transactionToCoupons) =>
+         new TransactionCouponDto
          {
-             Id = transactionToCoupons.Id,
-             TransactionDtoId = transactionToCoupons.TransactionId,
-             CouponId = transactionToCoupons.CouponId,
              Code = transactionToCoupons.Code,
              AmountOfDiscount = transactionToCoupons.AmountOfDiscount,
              TypeOfDiscountDto = transactionToCoupons.TypeOfDiscount.MapToTypeOfDiscountDto()
          };
 
-    public static List<TransactionToCoupons> MapToTransactionToCouponsList(this List<TransactionToCouponsDto> list) =>
-        list.Select(o => o.MapToTransactionToCoupons()).ToList();
-    public static List<TransactionToCouponsDto> MapToDtoList(this IReadOnlyCollection<TransactionToCoupons> list) =>
+    public static List<Coupon> MapToTransactionToCouponsList(this List<TransactionCouponDto> list) =>
+        list.Select(o => o.MapToDomain()).ToList();
+    public static List<TransactionCouponDto> MapToDtoList(this IReadOnlyCollection<Coupon> list) =>
         list.Select(o => o.MapToDto()).ToList();
-    public static TransactionToCoupons MapToTransactionToCoupons(this AddTransactionToCouponsDto dto) =>
-        new TransactionToCoupons
+    public static Coupon MapToTransactionToCoupons(this AddCouponsDto dto) =>
+        new Coupon
         {
-            CouponId = dto.CouponId,
             Code = dto.Code,
             AmountOfDiscount = dto.AmountOfDiscount,
             TypeOfDiscount = dto.TypeOfDiscountDto.MapToTypeOfDiscount()
         };
 
-    public static List<TransactionToCoupons> MapToTransactionToCouponsList(this List<AddTransactionToCouponsDto> dtoList) =>
+    public static List<Coupon> MapToCouponsList(this List<AddCouponsDto> dtoList) =>
         dtoList.Select(o => o.MapToTransactionToCoupons()).ToList();
 }

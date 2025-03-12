@@ -1,6 +1,6 @@
 ﻿namespace ApiUser.Dtos;
 
-public class DtoUpdateUser
+public class DtoUser
 {
     public int UserId { get; set; }
     public string EMail { get; set; }

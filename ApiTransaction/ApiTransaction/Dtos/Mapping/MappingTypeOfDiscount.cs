@@ -1,26 +1,25 @@
-﻿using Transaction.Domain;
-using Transaction.Domain.Exceptions;
+﻿using Transaction.Domain.Exceptions;
 
 namespace Transaction.Service.Dtos.Mapping;
 
 public static class MappingTypeOfDiscount
 {
-    public static TypeOfDiscount MapToTypeOfDiscount(this TypeOfDiscountDto typeOfDiscountDto)
+    public static Domain.TypeOfDiscount MapToTypeOfDiscount(this TypeOfDiscountTransactionCouponDto typeOfDiscountDto)
     {
         return typeOfDiscountDto switch
         {
-            TypeOfDiscountDto.Percentage => TypeOfDiscount.Percentage,
-            TypeOfDiscountDto.Total => TypeOfDiscount.Total,
+            TypeOfDiscountTransactionCouponDto.Percentage => Domain.TypeOfDiscount.Percentage,
+            TypeOfDiscountTransactionCouponDto.Total => Domain.TypeOfDiscount.Total,
             _ => throw new EnumException("Conversion from TypeOfDiscountDto to TypeOfDiscount failed")
         };
     }
 
-    public static TypeOfDiscountDto MapToTypeOfDiscountDto(this TypeOfDiscount typeOfDiscount)
+    public static TypeOfDiscountTransactionCouponDto MapToTypeOfDiscountDto(this Domain.TypeOfDiscount typeOfDiscount)
     {
         return typeOfDiscount switch
         {
-            TypeOfDiscount.Percentage => TypeOfDiscountDto.Percentage,
-            TypeOfDiscount.Total => TypeOfDiscountDto.Total,
+            Domain.TypeOfDiscount.Percentage => TypeOfDiscountTransactionCouponDto.Percentage,
+            Domain.TypeOfDiscount.Total => TypeOfDiscountTransactionCouponDto.Total,
             _ => throw new EnumException("Conversion from TypeOfDiscount to TypeOfDiscountDto failed")
         };
     }

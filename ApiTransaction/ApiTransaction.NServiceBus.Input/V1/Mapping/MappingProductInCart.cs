@@ -9,7 +9,6 @@ public static class MappingProductInCart
             ProductId = productInCartDto.ProductId,
             Count = productInCartDto.Count,
             PricePerProduct = productInCartDto.PricePerProduct,
-            TransactionId = productInCartDto.TransactionId
         };
 
         return result;

@@ -1,6 +1,8 @@
 using ApiCouponProduct.Application;
+using ApiCouponProduct.Authentication;
 using ApiCouponProduct.Database;
 using ApiCouponProduct.Middlewares;
+using Microsoft.AspNetCore.Authentication;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,22 @@ try
         {
             options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         });
+
+    builder.Services.AddAuthentication(ApiKeyAuthenticationScheme.DefaultScheme)
+    .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>(ApiKeyAuthenticationScheme.DefaultScheme, null);
+
+    builder.Services.AddAuthorization(o =>
+    {
+        o.AddPolicy(AuthorizeControllerModelConvention.PolicyName, policy =>
+        {
+            policy.RequireAuthenticatedUser();
+        });
+    });
+
+    builder.Services.AddMvc(options =>
+    {
+        options.Conventions.Add(new AuthorizeControllerModelConvention());
+    });
 
     builder.Services.AddDatabase(builder.Configuration);
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

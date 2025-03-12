@@ -14,16 +14,15 @@ public static class MappingToDomain
             _ => throw new NotImplementedException(),
         };
 
-    public static Transaction.Domain.TransactionToCoupons MapToDomain(this Coupon coupon)
-        => new Transaction.Domain.TransactionToCoupons
+    public static Transaction.Domain.Coupon MapToDomain(this TransactionCoupon coupon)
+        => new Transaction.Domain.Coupon
         {
-            CouponId = coupon.Id,
             Code = coupon.Code,
             AmountOfDiscount = coupon.AmountOfDiscount,
             TypeOfDiscount = coupon.TypeOfDiscount.MapToDomain(),
         };
 
-    public static List<Transaction.Domain.TransactionToCoupons> MapToDomain(this RepeatedField<Coupon> list)
+    public static List<Transaction.Domain.Coupon> MapToDomain(this RepeatedField<TransactionCoupon> list)
         => list.Select(o => o.MapToDomain()).ToList();
 
     public static Transaction.Domain.ProductInCart MapToDomain(this ProductInCart productInCart)
@@ -31,6 +30,7 @@ public static class MappingToDomain
         {
             Count = productInCart.Count,
             ProductId = productInCart.ProductId,
+            PricePerProduct = Decimal.Parse(productInCart.PricePerProduct)
         };
 
     public static List<Transaction.Domain.ProductInCart> MapToDomain(this RepeatedField<ProductInCart> list)

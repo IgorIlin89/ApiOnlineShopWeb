@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Transaction.Application.Commands;
 using Transaction.Application.Interfaces;
-using Transaction.Domain;
 using Transaction.Service.Dtos;
 using Transaction.Service.Dtos.Mapping;
 
@@ -26,13 +25,15 @@ public class TransactionController(
     public async Task<ActionResult> BuyShoppingCartItems([FromBody] AddTransactionDto addTransactionDto,
         CancellationToken cancellationToken)
     {
-        List<ProductInCart> productsInCart = addTransactionDto.AddProductsInCartDto.MapToProductInCartList();
-        var couponsUsed = new List<TransactionToCoupons>();
+        var productsInCart = addTransactionDto.AddProductsInCartDto.MapToDomain();
+        var couponsUsed = addTransactionDto.AddCouponsDto.MapToCouponsList();
 
-        if (addTransactionDto.AddCouponsDto is not null)
-        {
-            couponsUsed = addTransactionDto.AddCouponsDto.MapToTransactionToCouponsList();
-        }
+        //var couponsUsed = new List<Coupon>();
+
+        //if (addTransactionDto.AddCouponsDto is not null)
+        //{
+        //    couponsUsed = addTransactionDto.AddCouponsDto.MapToCouponsList();
+        //}
 
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
         var result = await addTransactionCommandHandler.HandleAsync(command, cancellationToken);

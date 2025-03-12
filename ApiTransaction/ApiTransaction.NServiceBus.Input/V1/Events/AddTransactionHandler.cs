@@ -7,13 +7,13 @@ using Transaction.NServiceBus.Input.V1.Mapping;
 
 namespace Transaction.NServiceBus.Input.V1.Events;
 
-public class AddTransactionHandler(IAddTransactionCommandHandler transactionCommandHandler
-    ) : IHandleMessages<AddTransactionEvent>
+public class AddTransactionHandler(IAddTransactionCommandHandler transactionCommandHandler)
+    : IHandleMessages<AddTransactionEvent>
 {
     public async Task Handle(AddTransactionEvent message, IMessageHandlerContext context)
     {
         var addProductsInCartList = message.AddProductsInCartDto.MapToProductInCartList();
-        var addCouponsUsed = new List<TransactionToCoupons>();
+        var addCouponsUsed = new List<Coupon>();
 
         if (message.AddCouponsDto is not null)
         {

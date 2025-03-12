@@ -3,7 +3,7 @@
 namespace Transaction.Application.Commands;
 
 public record AddTransactionCommand(int UserId,
-    List<ProductInCart> ProductInCartList,
-    List<TransactionToCoupons> CouponsUsed)
+    IReadOnlyCollection<ProductInCart> ProductInCartList,
+    IReadOnlyCollection<Coupon> CouponsUsed)
 {
 }

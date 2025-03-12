@@ -13,7 +13,6 @@ public static class MappingTransaction
             CouponsDto = transaction.Coupons.MapToDtoList()
         };
 
-
     public static List<TransactionDto> MapToDtoList(
         this ICollection<Domain.Transaction> transactionHistories) =>
         transactionHistories.Select(o => o.MapToDto()).ToList();

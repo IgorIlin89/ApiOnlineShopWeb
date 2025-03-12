@@ -9,7 +9,7 @@ public class Transaction
     public DateTimeOffset PaymentDate { get; private init; }
     public decimal FinalPrice { get; private init; }
     public IReadOnlyCollection<ProductInCart> ProductsInCart { get; private init; }
-    public IReadOnlyCollection<TransactionToCoupons>? Coupons { get; private init; }
+    public IReadOnlyCollection<Coupon> Coupons { get; private init; }
 
     //When using ICollection, EF Core give an Error
 
@@ -21,8 +21,8 @@ public class Transaction
 
     }
 
-    public static Transaction Create(int userId, List<ProductInCart> productsInCart,
-        List<TransactionToCoupons> couponsUsed)
+    public static Transaction Create(int userId, IReadOnlyCollection<ProductInCart> productsInCart,
+        IReadOnlyCollection<Coupon> couponsUsed)
     {
         if (productsInCart.Count == 0)
         {
@@ -41,8 +41,8 @@ public class Transaction
         return result;
     }
 
-    private static decimal CalculateFinalPrice(List<ProductInCart> products,
-        List<TransactionToCoupons>? coupons)
+    private static decimal CalculateFinalPrice(IReadOnlyCollection<ProductInCart> products,
+        IReadOnlyCollection<Coupon> coupons)
     {
         decimal result = new();
 
@@ -51,18 +51,15 @@ public class Transaction
             result += element.PricePerProduct * element.Count;
         }
 
-        if (coupons is not null)
+        foreach (var element in coupons)
         {
-            foreach (var element in coupons)
+            if (element.TypeOfDiscount == TypeOfDiscount.Percentage)
             {
-                if (element.TypeOfDiscount == TypeOfDiscount.Percentage)
-                {
-                    result = ((100m - (decimal)element.AmountOfDiscount) / 100) * result;
-                }
-                else if (element.TypeOfDiscount == TypeOfDiscount.Total)
-                {
-                    result -= (decimal)element.AmountOfDiscount;
-                }
+                result = ((100m - (decimal)element.AmountOfDiscount) / 100) * result;
+            }
+            else if (element.TypeOfDiscount == TypeOfDiscount.Total)
+            {
+                result -= (decimal)element.AmountOfDiscount;
             }
         }
 

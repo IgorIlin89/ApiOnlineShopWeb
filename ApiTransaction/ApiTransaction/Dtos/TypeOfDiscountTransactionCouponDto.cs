@@ -1,6 +1,6 @@
 ﻿namespace Transaction.Service.Dtos;
 
-public enum TypeOfDiscountDto
+public enum TypeOfDiscountTransactionCouponDto
 {
     Percentage = 1,
     Total = 2

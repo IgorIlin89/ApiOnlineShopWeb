@@ -6,7 +6,8 @@ using ApiUser.Dtos;
 using Microsoft.AspNetCore.Mvc;
 namespace ApiUser.Controllers;
 
-public class UserController(IGetUserListCommandHandler getUserListCommandHandler,
+public class UserController(
+    IGetUserListCommandHandler getUserListCommandHandler,
     IGetUserByEmailCommandHandler getUserByEmailCommandHandler,
     IGetUserByIdCommandHandler getUserByIdCommandHandler,
     IUpdateUserCommandHandler updateUserCommandHandler,
@@ -59,7 +60,7 @@ public class UserController(IGetUserListCommandHandler getUserListCommandHandler
 
     [Route("user")]
     [HttpPut]
-    public async Task<IActionResult> UpdateUser([FromBody] DtoUpdateUser updateUserDto,
+    public async Task<IActionResult> UpdateUser([FromBody] DtoUser updateUserDto,
         CancellationToken cancellationToken)
     {
         var commmand = new UpdateUserCommand(

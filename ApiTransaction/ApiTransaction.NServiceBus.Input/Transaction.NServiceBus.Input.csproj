@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OnlineShopWeb.Messages" Version="8.0.0-v2" />
+    <PackageReference Include="OnlineShopWeb.Messages" Version="8.0.0-v4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ApiTransaction.Application\Transaction.Application.csproj" />
     <ProjectReference Include="..\ApiTransaction.Domain\Transaction.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="V2\" />
   </ItemGroup>
 
 </Project>

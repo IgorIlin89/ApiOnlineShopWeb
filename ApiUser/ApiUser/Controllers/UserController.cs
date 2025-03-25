@@ -67,7 +67,7 @@ public class UserController(
             updateUserDto.UserId.ToString(), updateUserDto.EMail,
             updateUserDto.GivenName, updateUserDto.Surname, updateUserDto.Age,
             updateUserDto.Country, updateUserDto.City, updateUserDto.Street,
-            updateUserDto.HouseNumber, updateUserDto.PostalCode, updateUserDto.Password);
+            updateUserDto.HouseNumber, updateUserDto.PostalCode);
 
         var user = await updateUserCommandHandler.HandleAsync(commmand, cancellationToken);
 

@@ -23,7 +23,6 @@ public class UpdateUserCommandHandler(IUnitOfWork UnitOfWork,
             Street = command.Street,
             HouseNumber = command.HouseNumber,
             PostalCode = command.PostalCode,
-            Password = command.Password
         };
 
         var response = await Repository.UpdateAsync(user, cancellationToken);

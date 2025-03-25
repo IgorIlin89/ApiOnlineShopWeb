@@ -62,3 +62,12 @@ finally
 {
     Log.CloseAndFlush();
 }
+
+
+namespace ApiUser
+{
+    public class Program
+    {
+
+    }
+}

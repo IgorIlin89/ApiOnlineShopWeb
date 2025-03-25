@@ -16,7 +16,7 @@ public class AddTransactionCommandGrpcHandler(IUnitOfWork UnitOfWork,
             command.CouponsUsed
             );
 
-        var result = await TransactionRepository.AddAsync(transactionToAdd,
+        var result = await UnitOfWork.TransactionRepository.AddAsync(transactionToAdd,
             cancellationToken);
 
         await UnitOfWork.SaveChangesAsync(cancellationToken);

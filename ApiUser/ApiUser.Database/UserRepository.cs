@@ -124,7 +124,6 @@ internal class UserRepository : IUserRepository
         userToEdit.Street = user.Street;
         userToEdit.HouseNumber = user.HouseNumber;
         userToEdit.PostalCode = user.PostalCode;
-        userToEdit.Password = user.Password;
 
         return userToEdit;
     }

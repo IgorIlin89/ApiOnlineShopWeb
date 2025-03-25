@@ -70,6 +70,22 @@ try
 
     app.MapControllers();
 
+    ////
+    //app.Use(async (context, next) =>
+    //{
+    //    var authenticateResult = await context.AuthenticateAsync();
+    //    if (authenticateResult?.Principal != null)
+    //    {
+    //        var claims = authenticateResult.Principal.Claims;
+    //        foreach (var claim in claims)
+    //        {
+    //            Console.WriteLine($"{claim.Type}: {claim.Value}");
+    //        }
+    //    }
+
+    //    await next();
+    //});
+
     app.Run();
 
 }

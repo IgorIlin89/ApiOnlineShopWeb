@@ -16,6 +16,9 @@ public class ProductController(IGetProductListCommandHandler getProductListComma
     [HttpGet]
     public async Task<IActionResult> GetProductList(CancellationToken cancellationToken)
     {
+        var user = User; // This is the ClaimsPrincipal
+        var claims = user.Claims.Select(c => new { c.Type, c.Value }).ToList();
+
         var productList = await getProductListCommandHandler.HandleAsync(cancellationToken);
         return Ok(productList.MapToDtoList());
     }

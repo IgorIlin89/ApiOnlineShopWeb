@@ -13,9 +13,12 @@ public static class DbServiceCollectionExtension
         serviceCollection.AddDbContext<TransactionContext>(configure =>
         {
             configure.UseSqlServer(configuration.GetConnectionString("ApiOnlineShopWebDb"));
-        });
+        },
+        ServiceLifetime.Transient
+        );
 
         serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>()
+            .AddScoped<IUnitOfWorkFactory, UnitOfWorkFactory>()
             .AddScoped<ITransactionRepository, TransactionRepository>();
 
         return serviceCollection;

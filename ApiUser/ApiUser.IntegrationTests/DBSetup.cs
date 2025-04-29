@@ -12,6 +12,19 @@ public class DBSetup : IDisposable
 {
     private readonly string _connectionString;
 
+    //TODO
+    //Eventtests,
+    //mocks
+    //NServiceBusEvents test, events getestet, das event und die inhalte
+    //verschickt werden,
+    //Authentifizierung testen
+    //Setup von integrationTests beinhaltet setup des environments,
+    //inklusive path variable
+
+    //debuggen von jobs
+    //Quartz für jobs
+
+
     public DBSetup(string configfile)
     {
         var configuration = new ConfigurationBuilder()

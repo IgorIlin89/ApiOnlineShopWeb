@@ -28,13 +28,6 @@ public class TransactionController(
         var productsInCart = addTransactionDto.AddProductsInCartDto.MapToDomain();
         var couponsUsed = addTransactionDto.AddCouponsDto.MapToCouponsList();
 
-        //var couponsUsed = new List<Coupon>();
-
-        //if (addTransactionDto.AddCouponsDto is not null)
-        //{
-        //    couponsUsed = addTransactionDto.AddCouponsDto.MapToCouponsList();
-        //}
-
         var command = new AddTransactionCommand(addTransactionDto.UserId, productsInCart, couponsUsed);
         var result = await addTransactionCommandHandler.HandleAsync(command, cancellationToken);
 

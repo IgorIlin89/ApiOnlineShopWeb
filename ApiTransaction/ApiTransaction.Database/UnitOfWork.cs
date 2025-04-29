@@ -4,16 +4,23 @@ namespace Transaction.Database;
 
 public class UnitOfWork : IUnitOfWork
 {
-    public ITransactionRepository TransactionRepository { get; init; }
     private readonly TransactionContext _dbContext;
+    private readonly ITransactionRepository _transactionRepository;
+
     public UnitOfWork(TransactionContext dbContext)
     {
         _dbContext = dbContext;
-        TransactionRepository = new TransactionRepository(dbContext);
     }
+
+    public ITransactionRepository TransactionRepository =>
+        _transactionRepository is null ? new TransactionRepository(_dbContext) : _transactionRepository;
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
     }
+
+    public void Dispose() => _dbContext.Dispose();
+
+    public ValueTask DisposeAsync() => _dbContext.DisposeAsync();
 }

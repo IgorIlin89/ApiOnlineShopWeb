@@ -1,4 +1,5 @@
-﻿using NServiceBus;
+﻿using Microsoft.Extensions.DependencyInjection;
+using NServiceBus;
 using OnlineShopWeb.Messages.V2.Events;
 using Transaction.Application.Commands;
 using Transaction.Application.Interfaces;
@@ -8,11 +9,12 @@ using Transaction.NServiceBus.Input.V2.Mapping;
 namespace Transaction.NServiceBus.Input.V2.Events;
 
 
-public class AddTransactionHandler(IAddTransactionCommandHandler transactionCommandHandler)
+public class AddTransactionHandler(IServiceProvider ServiceProvider)
     : IHandleMessages<AddTransactionEvent>
 {
     public async Task Handle(AddTransactionEvent message, IMessageHandlerContext context)
     {
+        var transactionCommandHandler = ServiceProvider.GetRequiredService<IAddTransactionCommandHandler>();
         var addProductsInCartList = message.AddProductsInCartDto.MapToDomain();
         var addCouponsUsed = new List<Coupon>();
 

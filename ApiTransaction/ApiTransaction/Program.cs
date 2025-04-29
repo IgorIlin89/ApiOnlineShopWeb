@@ -57,12 +57,12 @@ try
         DefaultSchema = "dbo",
         TransportTransactionMode = TransportTransactionMode.SendsAtomicWithReceive,
         Subscriptions =
-    {
-        CacheInvalidationPeriod = TimeSpan.FromMinutes(1),
-        SubscriptionTableName = new NServiceBus.Transport.SqlServer.SubscriptionTableName(
-            table: "Subscriptions",
-            schema: "dbo")
-    }
+        {
+            CacheInvalidationPeriod = TimeSpan.FromMinutes(1),
+            SubscriptionTableName = new NServiceBus.Transport.SqlServer.SubscriptionTableName(
+                table: "Subscriptions",
+                schema: "dbo")
+        }
     };
 
     transportConfig.SchemaAndCatalog.UseSchemaForQueue("error", "dbo");

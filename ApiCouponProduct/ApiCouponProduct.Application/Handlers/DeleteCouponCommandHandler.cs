@@ -11,7 +11,7 @@ public class DeleteCouponCommandHandler(IUnitOfWork UnitOfWork, ICouponRepositor
     public async Task HandleAsync(DeleteCouponCommand command,
         CancellationToken cancellationToken)
     {
-        await Repository.DeleteAsync(command.Id, cancellationToken);
+        await Repository.DeleteAsync(command.Code, cancellationToken);
         await UnitOfWork.SaveChangesAsync(cancellationToken);
     }
 }

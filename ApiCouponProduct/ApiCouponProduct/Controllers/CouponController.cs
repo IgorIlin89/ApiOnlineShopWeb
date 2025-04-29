@@ -44,10 +44,10 @@ public class CouponController(IGetCouponListCommandHandler getCouponListCommandH
 
     [Route("coupon/{id}")]
     [HttpDelete]
-    public async Task<IActionResult> DeleteCoupon(int id,
+    public async Task<IActionResult> DeleteCoupon(string code,
         CancellationToken cancellationToken)
     {
-        var command = new DeleteCouponCommand(id);
+        var command = new DeleteCouponCommand(code);
         await deleteCouponCommandHandler.HandleAsync(command, cancellationToken);
         return Ok();
     }

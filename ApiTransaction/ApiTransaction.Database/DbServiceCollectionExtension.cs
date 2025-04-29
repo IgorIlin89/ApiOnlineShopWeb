@@ -17,9 +17,8 @@ public static class DbServiceCollectionExtension
         ServiceLifetime.Transient
         );
 
-        serviceCollection.AddScoped<IUnitOfWork, UnitOfWork>()
-            .AddScoped<IUnitOfWorkFactory, UnitOfWorkFactory>()
-            .AddScoped<ITransactionRepository, TransactionRepository>();
+        serviceCollection
+            .AddScoped<IUnitOfWorkFactory, UnitOfWorkFactory>();
 
         return serviceCollection;
     }

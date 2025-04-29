@@ -4,22 +4,22 @@ using Transaction.Domain.Interfaces;
 
 namespace Transaction.Application.Handlers;
 
-public class AddTransactionCommandGrpcHandler(IUnitOfWork UnitOfWork,
-    ITransactionRepository TransactionRepository) : IAddTransactionCommandGrpcHandler
+public class AddTransactionCommandGrpcHandler(IUnitOfWorkFactory UnitOfWorkFactory) : IAddTransactionCommandGrpcHandler
 {
     public async Task<Transaction.Domain.Transaction> HandleAsync(AddTransactionCommand command,
         CancellationToken cancellationToken)
     {
+        var unitOfWork = UnitOfWorkFactory.Create();
         var transactionToAdd = Transaction.Domain.Transaction.Create(
             command.UserId,
             command.ProductInCartList,
             command.CouponsUsed
             );
 
-        var result = await UnitOfWork.TransactionRepository.AddAsync(transactionToAdd,
+        var result = await unitOfWork.TransactionRepository.AddAsync(transactionToAdd,
             cancellationToken);
 
-        await UnitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return result;
     }
